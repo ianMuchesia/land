@@ -48,14 +48,21 @@ const handleSubmit = async(e:React.FormEvent)=>{
       const {data } = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/communication/sms`, {name:form.name , phone:form.phone ,property:property._id, message:form.message})
 
       console.log(data)
-      if(data.success){
-          setForm({
-              name:"",
-              phone:"",
-              message:"",
-          })
-          router.push(data.link)
+      if(!data.success){
+         
+        toast.warning("Something wrong happened") 
+        
       }
+      setTimeout(()=>{
+        setSuccess(true)
+        setForm({
+          name:"",
+          phone:"",
+          message:"",
+      })
+
+      },1000)
+      router.push(data.link)
   } catch (error) {
       console.log(error)
   }

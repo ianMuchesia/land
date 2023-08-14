@@ -45,19 +45,21 @@ const handleSubmit = async(e:React.FormEvent)=>{
  if(!form.name || !form.phone ||!form.message){
    toast.warning("Fill all the inputs")
  }
+ console.log(form)
 
    try {
       const {data } = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/communication/whatsapp`, {name:form.name , phone:form.phone ,property:property._id, message:form.message})
 
       console.log(data)
-      if(data.success){
-          setForm({
-              name:"",
-              phone:"",
-              message:"",
-          })
-          router.push(data.link)
+      if(!data.success){
+          
       }
+      setForm({
+        name:"",
+        phone:"",
+        message:"",
+    })
+    router.push(data.link)
   } catch (error) {
       console.log(error)
   }
@@ -129,7 +131,7 @@ const handleSubmit = async(e:React.FormEvent)=>{
               id="phone"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
               placeholder="0712-345-678"
-              pattern="[0-9]{4}-[0-9]{3}-[0-9]{3}"
+              pattern="[0-9]{4}[0-9]{3}[0-9]{3}"
               name="phone"
               value={form.phone}
               onChange={handleChange}
@@ -137,7 +139,7 @@ const handleSubmit = async(e:React.FormEvent)=>{
             />
           </div>
           <button
-            type="button"
+          
             className="px-6 py-3.5 text-base font-medium text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 rounded-lg text-center "
           >
             <Icon

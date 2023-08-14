@@ -3,6 +3,11 @@ import Link from 'next/link'
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
+
+
+
 
 const LoginForm = () => {
 
@@ -29,27 +34,43 @@ const LoginForm = () => {
           toast.warn("please fill all the inputs");
           return;
         }
+
+        const settings = {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        };
         
         try {
-          const { data } = await axios.post(
+          const response = await fetch(
             `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/login`,
-            {
-              email,
-              password,
-            },
-            { withCredentials: true }
+       settings
           );
       
-          toast.success("Login successful!");
-    
-          setTimeout(() => {
+
+      const data = await response.json();
+      // enter you logic when the fetch is successful
+
+      if(data.msg){
+        toast.warning(data.msg);
+        return;
+      }
+        toast.success("Login successful!");
+        setTimeout(() => {
+          router.push("/");
+          setLoginForm({
           
-            router.push("/");
-            setLoginForm({
-              email: "",
-              password: "",
-            });
-          }, 2000);
+            email: "",
+            password: "",
+          
+          });
+        }, 2000);
         } catch (error: any) {
        
           console.log(error);
