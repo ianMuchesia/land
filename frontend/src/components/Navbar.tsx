@@ -50,16 +50,8 @@ const Navbar = () => {
                   Properties
                 </Link>
               </li>
-              <li>
-                <a
-                  href="#features"
-                  aria-label="Our product"
-                  title="Our product"
-                  className="font-medium tracking-wide text-black transition-colors duration-200 hover:text-teal-accent-400"
-                >
-                  Features
-                </a>
-              </li>
+            
+             
               
               <li>
                 <Link

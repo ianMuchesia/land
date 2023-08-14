@@ -83,7 +83,7 @@ const properties = () => {
     dispatch({ type: "SET_CURRENT_PAGE", payload: page });
   };
   
-  console.log(filter)
+
   
   return (
    <>
@@ -101,6 +101,7 @@ const properties = () => {
     {isLoading && <div className="flex items-center justify-center">
     <DataLoader/>
     </div>}
+   
     {data?.nbHits > 0 &&
             data?.properties.map((property) => (
               <Property property={property} key={property._id} />

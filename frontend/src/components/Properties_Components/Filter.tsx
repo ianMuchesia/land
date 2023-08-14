@@ -1,5 +1,8 @@
+import { typeLocation } from "@/@types/@types";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React, { Dispatch, SetStateAction } from "react";
+import useSWR from "swr";
+import Location from "./Location";
 interface Props {
 	setFilter: Dispatch<
 	  SetStateAction<{
@@ -23,7 +26,22 @@ interface Props {
 	};
   }
 
+
+
 const Filter = ({ setFilter, filter }: Props) => {
+
+	const handleResetFilter=()=>{
+		setFilter({
+			location: "",
+			sort: "",
+			price_min: 50000,
+			price_max: "",
+			size_max: "",
+			size_min: "",
+			search: "",
+		  })
+	}
+
 	const handleChange = (
 		e:
 		  | React.ChangeEvent<HTMLInputElement>
@@ -56,7 +74,7 @@ const Filter = ({ setFilter, filter }: Props) => {
         <div className="flex items-center justify-between mt-4">
           <p className="font-medium">Filters</p>
 
-          <button className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md">
+          <button className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md" onClick={handleResetFilter}>
             Reset Filter
           </button>
         </div>
@@ -97,13 +115,7 @@ const Filter = ({ setFilter, filter }: Props) => {
               <option value="-price">Price (highest first)</option>
             </select>
 
-            <select className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-			name="location"  onChange={handleChange}
-			>
-              <option value="">-Choose Location-</option>
-              <option value="Likoni">Likoni</option>
-              <option value="Nyali">Nyali</option>
-            </select>
+          <Location handleChange={handleChange}/>
 
             <select className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm" name="sort" onChange={handleChange}>
               <option value="">--Sort By Area--</option>
