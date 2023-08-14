@@ -8,8 +8,8 @@ const Faq = () => {
       
       <div className="max-w-screen-xl sm:mx-auto  ">
       
-           <div className="grid max-w-screen-lg gap-8 row-gap-10 mx-auto md:grid-cols-2 xl:grid-cols-4">
-        <div className="flex flex-col max-w-md sm:mx-auto sm:flex-row">
+           <div className="grid max-w-screen-lg gap-8 row-gap-10 mx-auto md:grid-cols-2 xl:grid-cols-2">
+        <div className="flex flex-col max-w-md sm:mx-auto sm:items-center">
           <div className="mr-4">
             <div className="flex items-center justify-center w-12 h-12 mb-4 rounded-full bg-indigo-50">
               <Icon icon="majesticons:search" className="w-16 h-16  text-green-800" />
@@ -23,10 +23,10 @@ const Faq = () => {
           
           </div>
         </div>
-        <div className="flex flex-col max-w-md sm:mx-auto sm:flex-row">
+        <div className="flex flex-col max-w-md sm:mx-auto sm:items-center">
           <div className="mr-4">
             <div className="flex items-center justify-center w-12 h-12 mb-4 rounded-full bg-indigo-50">
-              <Icon icon="solar:filter-bold-duotone" className="w-16 h-16  text-green-800" />
+              <Icon icon="solar:filter-bold-duotone" className="w-20 h-20  text-green-800" />
             </div>
           </div>
           <div>
@@ -37,12 +37,12 @@ const Faq = () => {
            
           </div>
         </div>
-        <div className="flex flex-col max-w-md sm:mx-auto sm:flex-row">
+        <div className="flex flex-col max-w-md sm:mx-auto sm:items-center">
           <div className="mr-4">
             <div className="flex items-center justify-center w-12 h-12 mb-4 rounded-full bg-indigo-50">
               <Icon
                 icon="carbon:event"
-                className="w-10 h-10" text-green-800
+                className="w-10 h-10 text-green-800" 
               />
             </div>
           </div>
@@ -54,7 +54,7 @@ const Faq = () => {
           
           </div>
         </div>
-        <div className="flex flex-col max-w-md sm:mx-auto sm:flex-row">
+        <div className="flex flex-col max-w-md sm:mx-auto sm:items-center">
           <div className="mr-4">
             <div className="flex items-center justify-center w-12 h-12 mb-4 rounded-full bg-indigo-50">
               <Icon

@@ -123,7 +123,7 @@ const Navbar = () => {
                 <div className="p-5 bg-white border rounded shadow-sm">
                   <div className="flex items-center justify-between mb-4">
                     <div>
-                      <a
+                      <Link
                         href="/"
                         aria-label="Company"
                         title="Company"
@@ -148,7 +148,7 @@ const Navbar = () => {
                         <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
                           Land Listing
                         </span>
-                      </a>
+                      </Link>
                     </div>
                     <div>
                       <button
@@ -168,7 +168,7 @@ const Navbar = () => {
                     <ul className="space-y-4">
                       <li onClick={handleCloseToggle}>
                         <Link
-                          href="/"
+                          href="/properties"
                           aria-label="Our product"
                           title="Our product"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"

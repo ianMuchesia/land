@@ -2,6 +2,7 @@ import React from 'react'
 import HomeProperty from './HomeProperty'
 import axios from 'axios';
 import { typeProperties } from '@/@types/@types'
+import Link from 'next/link';
 interface Props {
   properties: typeProperties[];
 }
@@ -33,6 +34,14 @@ const Properties = ({properties}:Props) => {
               <HomeProperty key={property._id} property={property} />
             ))}
     </div>
+   <div className="flex items-center justify-center my-10">
+   <Link
+              href="/properties"
+              className="inline-flex bg-green-700 text-white items-center justify-center h-12 lg:h-16 px-6  mr-6 font-medium tracking-wide text-green hover:text-gray-800 hover:bg-white transition duration-200 rounded shadow-md bg-deep-green-200 hover:focus:shadow-outline focus:outline-none xl:text-xl"
+            >
+             More
+            </Link>
+   </div>
     </div>
   )
 }
