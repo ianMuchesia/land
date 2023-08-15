@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { Icon } from '@iconify/react';
 import Link from "next/link";
+import { useAppSelector } from "@/redux/Hooks";
 
 const Navbar = () => {
+
+  const wish = useAppSelector(state=>state.wish.total)
+
+  const user = useAppSelector(state=>state.auth)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleCloseToggle=()=>{
@@ -85,6 +90,19 @@ const Navbar = () => {
               >
                 Sign up
               </Link>
+            </li>
+            <li className="relative flex">
+              <Link
+                href="/wishlist"
+                className=""
+                aria-label="WishList"
+                title="WishList"
+              >
+               <Icon icon="streamline:interface-favorite-heart-reward-social-rating-media-heart-it-like-favorite-love" className="text-9 h-10 w-9" />
+              </Link>
+              <span className="absolute right-0 top-0 rounded-full bg-green-800 w-5 h-5 top right p-0 m-0 text-white font-mono text-sm  leading-tight text-center">
+                  {wish}
+                </span>
             </li>
           </ul>
           <div className="lg:hidden">
@@ -188,6 +206,19 @@ const Navbar = () => {
                         >
                           About us
                         </Link>
+                      </li>
+                      <li onClick={handleCloseToggle} className=" flex items-center gap-2">
+                        <Link
+                          href="/wishlist"
+                          aria-label="About us"
+                          title="About us"
+                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                        >
+                          Wishlist
+                        </Link>
+                        <span className="rounded-full bg-green-800 w-5 h-5 top right p-0 m-0 text-white font-mono text-sm  leading-tight text-center">
+                 {wish}
+                </span>
                       </li>
                       <li onClick={handleCloseToggle}>
                         <Link

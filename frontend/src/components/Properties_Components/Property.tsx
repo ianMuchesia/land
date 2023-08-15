@@ -2,12 +2,15 @@ import { typeProperties } from "@/@types/@types";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React, { useState } from "react";
 import { Phone, SMS, Whatsapp } from "../Modals";
+import { useAppDispatch } from "@/redux/Hooks";
+import { addItem } from "@/redux/Features/wishlistSlice";
 interface Props {
   property: typeProperties;
 }
 
 const Property = ({ property }: Props) => {
 
+  const dispatch= useAppDispatch()
 
 
   const [modalState, setModalState] = useState({
@@ -15,6 +18,11 @@ const Property = ({ property }: Props) => {
     isSMS: false,
     isWhatsapp: false,
   });
+
+
+  const handleAddToWishList=()=>{
+    dispatch(addItem(property))
+  }
 
 
 
@@ -51,7 +59,7 @@ const Property = ({ property }: Props) => {
                 </span>
               </p>
             </div>
-            <div className="">
+            <div className="" onClick={handleAddToWishList}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 text-green-400"

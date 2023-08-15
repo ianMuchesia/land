@@ -45,6 +45,7 @@ const LoginForm = () => {
             email,
             password,
           }),
+          credentials: 'include' as RequestCredentials,
         };
         
         try {
@@ -63,14 +64,23 @@ const LoginForm = () => {
       }
         toast.success("Login successful!");
         setTimeout(() => {
-          router.push("/");
+
+const returnUrl = localStorage.getItem('returnUrl');
+         
           setLoginForm({
           
             email: "",
             password: "",
           
           });
-        }, 2000);
+          if (returnUrl) {
+            localStorage.removeItem('returnUrl'); // Clear the stored URL
+            router.push(returnUrl);
+          } else {
+            // If no return URL is stored, redirect to a default route
+            router.push('/');
+          }
+        }, 1000);
         } catch (error: any) {
        
           console.log(error);
@@ -93,7 +103,7 @@ const LoginForm = () => {
       >
         <img
           alt="Night"
-          src="https://images.unsplash.com/photo-1617195737496-bc30194e3a19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+          src="/about_sales.jpeg"
           className="absolute inset-0 h-full w-full object-cover opacity-80"
         />
   

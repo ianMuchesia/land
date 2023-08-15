@@ -5,11 +5,18 @@ import { Features, Hero, Properties } from '@/components/Home_Components'
 import Head from 'next/head'
 import axios from 'axios'
 import { typeProperties } from '@/@types/@types'
+import { useAppDispatch } from '@/redux/Hooks'
+import { useEffect } from 'react'
+import { checkAuthentication } from '@/redux/services/authCheck'
 interface Props {
   properties: typeProperties[];
 }
 
 export default function Home({ properties }: Props) {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(checkAuthentication());
+  }, []);
 
   return (
     <>

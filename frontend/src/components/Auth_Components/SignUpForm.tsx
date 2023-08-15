@@ -5,10 +5,6 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
-
-
-
 const SignUpForm = () => {
   const router = useRouter();
 
@@ -66,25 +62,28 @@ const SignUpForm = () => {
       const data = await response.json();
       // enter you logic when the fetch is successful
 
-     
-      if(data.msg){
+      if (data.msg) {
         toast.warning(data.msg);
         return;
       }
-        toast.success("Sign Up successful!");
-        setTimeout(() => {
+      toast.success("Sign Up successful!");
+      setTimeout(() => {
+        const returnUrl = localStorage.getItem("returnUrl");
+        setSignUpForm({
+          firstName: "",
+          secondName: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
+        if (returnUrl) {
+          localStorage.removeItem("returnUrl"); // Clear the stored URL
+          router.push(returnUrl);
+        } else {
+          // If no return URL is stored, redirect to a default route
           router.push("/");
-          setSignUpForm({
-            firstName: "",
-            secondName: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-          });
-        }, 2000);
-       
-        
-      
+        }
+      }, 2000);
     } catch (error: any) {
       console.log(error);
       toast.error(error.response.data.msg);
@@ -103,7 +102,7 @@ const SignUpForm = () => {
         <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
           <img
             alt="Night"
-            src="https://images.unsplash.com/photo-1617195737496-bc30194e3a19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+            src="/about_sales.jpg"
             className="absolute inset-0 h-full w-full object-cover opacity-80"
           />
 
