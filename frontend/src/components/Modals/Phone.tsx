@@ -7,6 +7,7 @@ import Success from "./Success";
 import { ToastContainer, toast } from "react-toastify";
 
 import 'react-toastify/dist/ReactToastify.css';
+import { SubmitHandler, useForm } from "react-hook-form";
 interface Props {
   setModalState: React.Dispatch<
     React.SetStateAction<{
@@ -17,59 +18,77 @@ interface Props {
   >;
   property: typeProperties;
 }
+
+type Inputs = {
+  name: string;
+  phone: number | string;
+  message: string;
+};
+
+
 const Phone = ({ property, setModalState }: Props) => {
+  const {
+    register,
+   
+    handleSubmit,
+    reset,
+    formState: { errors },
+    watch,
+  } = useForm<Inputs>({
+    defaultValues: {
+      name: "",
+      phone: "",
+   
+    },
+  });
 
   const router = useRouter();
-  const [ success, setSuccess] = useState(false)
-  const [ loader, setLoader] = useState(false)
-  const [ form , setForm] = useState({
-      name:"",
-      phone:"",
-  })
+  const [success, setSuccess] = useState(false);
+
+  
 
 
-  const handleChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
-    setForm(prevForm=>({
-        ...prevForm,
-        [e.target.name]: e.target.value
-    }))
-}
+  const FormOnSubmit: SubmitHandler<Inputs> = async (form) => {
+   
+    try {
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/communication/phone`,
+        {
+          name: form.name,
+          phone: form.phone,
+          property: property._id,
+        
+        }
+      );
 
-
-const handleSubmit = async(e:React.FormEvent)=>{
-  e.preventDefault();
- 
- if(!form.name || !form.phone){
-   toast.warning("Fill all the inputs")
- }
-
-   try {
-      const {data } = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/communication/phone`, {name:form.name , phone:form.phone ,property:property._id})
-
-      console.log(data)
-      if(data.success){
-          setForm({
-              name:"",
-              phone:"",
-          })
-          router.push(data.link)
+      console.log(data);
+      if (!data.success) {
+        toast.error(data.msg);
       }
-  } catch (error) {
-      console.log(error)
-  }
 
+      reset();
+      setSuccess(true);
+      router.push(data.link);
+      setTimeout(() => {
+        setSuccess(false);
+        setModalState((prev) => ({ ...prev, isPhone: false }));
+      }, 1000);
+    } catch (error: any) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
 
-}
 
   return (
     <div className="modal-overlay ">
      
-      <div className="modal-container bg-white rounded-lg ">
+      <div className="modal-container bg-white rounded-lg border-2 border-white ">
         <ToastContainer/>
-        {!success && <form className="flex flex-col items-center gap-5 pb-5 px-2" onSubmit={handleSubmit}>
+        {!success && <form className="flex flex-col items-center gap-5 pb-5 px-2" onSubmit={handleSubmit(FormOnSubmit)}>
           <Icon
             icon="ic:baseline-close"
-            className="self-end h-8 w-8"
+            className="self-end h-8 w-8 cursor-pointer"
             onClick={() =>
               setModalState((prev) => ({ ...prev, isPhone: false }))
             }
@@ -89,13 +108,16 @@ const handleSubmit = async(e:React.FormEvent)=>{
             <input
               type="text"
               id="name"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5  "
+              {...register("name", {required:"Your name is required"}) }
+              className={`selection:bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5  ${
+                errors.name
+                  ? "focus:outline-red-500  border-red-500"
+                  : "border-gray-300"
+              }`}
               placeholder="e.g John"
-              required
+             
             />
+                <span className="text-red-500">{errors.name?.message}</span>
           </div>
           <div>
             <label
@@ -107,14 +129,19 @@ const handleSubmit = async(e:React.FormEvent)=>{
             <input
               type="tel"
               id="phone"
-              name="phone"
-              value={form.phone}
-              onChange={handleChange}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+              {...register("phone", {required:"Your Phone Number is required"}) }
+              className={`bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5  ${
+                errors.phone
+                  ? "border-red-500 focus:outline-red-500"
+                  : "border-gray-300"
+              }`}
               placeholder="e.g 0712345678"
               pattern="[0-9]{4}[0-9]{3}[0-9]{3}"
-              required
+             
             />
+              <span className="text-red-500">
+                      {errors.phone?.message}
+                    </span>
           </div>
           <button
            

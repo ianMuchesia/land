@@ -14,10 +14,24 @@
   padding: 0;
   margin: 0;
 }
+/* 
+:root {
+  --bg-color: #f8fafc;
+  --text-color: black;
+}
 
-body{
-    font-family: 'Nunito', sans-serif;
-    background-color: #f8fafc;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: black;
+    --text-color: #f8fafc;
+  }
+  
+} */
+
+body {
+  font-family: 'Nunito', sans-serif !important;
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
 }
 
 h1,h2,h3,h4,h5,h6{
@@ -226,7 +240,7 @@ Data Loader
 .modal-container {
   min-width: 300px;
 
-  padding: 0.5em;
+  padding: 0.3em;
 
   display: flex;
   flex-direction: column;

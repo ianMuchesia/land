@@ -43,7 +43,7 @@ export const getServerSideProps = async () => {
   try {
     const { data } = await axios.get(`${process.env.BACKEND_URL}/api/v1/properties`);
 
-    const properties = data.properties.slice(0, 8);
+    const properties = data?.properties.slice(0, 8);
 
     return {
       props: { properties },

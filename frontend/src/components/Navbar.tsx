@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import { Icon } from '@iconify/react';
 import Link from "next/link";
 import { useAppSelector } from "@/redux/Hooks";
+import { Logout } from "./Modals";
 
 const Navbar = () => {
 
   const wish = useAppSelector(state=>state.wish.total)
 
   const user = useAppSelector(state=>state.auth)
+  
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [ isModalOpen , setIsModalOpen ]= useState(false)
 
   const handleCloseToggle=()=>{
     setIsMenuOpen(false)
@@ -25,7 +28,7 @@ const Navbar = () => {
               className="inline-flex items-center mr-8"
             >
                <svg
-                className="w-8 text-teal-accent-400"
+                className="w-8 "
                 viewBox="0 0 24 24"
                 strokeLinejoin="round"
                 strokeWidth="2"
@@ -50,7 +53,7 @@ const Navbar = () => {
                   href="/properties"
                   aria-label="Our product"
                   title="Our product"
-                  className="font-medium tracking-wide text-black transition-colors duration-200 hover:text-teal-accent-400"
+                  className="font-medium tracking-wide text-black transition-colors duration-200 hover:"
                 >
                   Properties
                 </Link>
@@ -63,7 +66,7 @@ const Navbar = () => {
                   href="/about"
                   aria-label="About us"
                   title="About us"
-                  className="font-medium tracking-wide text-black transition-colors duration-200 hover:text-teal-accent-400"
+                  className="font-medium tracking-wide text-black transition-colors duration-200 hover:"
                 >
                   About us
                 </Link>
@@ -71,7 +74,7 @@ const Navbar = () => {
             </ul>
           </div>
           <ul className=" items-center hidden space-x-8 lg:flex">
-            <li>
+           {!user.isAuthenticated && <li>
               <Link
                 href="/login"
                 aria-label="Sign in"
@@ -80,8 +83,8 @@ const Navbar = () => {
               >
                 Sign in
               </Link>
-            </li>
-            <li>
+            </li>}
+            {!user.isAuthenticated && <li>
               <Link
                 href="/signup"
                 className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-black transition duration-200 rounded shadow-md bg-green-400 hover:bg-green-700 focus:shadow-outline focus:outline-none"
@@ -90,8 +93,18 @@ const Navbar = () => {
               >
                 Sign up
               </Link>
-            </li>
-            <li className="relative flex">
+            </li>}
+            {user.isAuthenticated && <li>
+              <button
+                onClick={()=>setIsModalOpen(true)}
+                className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-black transition duration-200 rounded shadow-md bg-green-400 hover:bg-green-700 focus:shadow-outline focus:outline-none"
+                aria-label="Sign up"
+                title="Sign up"
+              >
+                Sign Out
+              </button>
+            </li>}
+          {wish>0 &&  <li className="relative flex">
               <Link
                 href="/wishlist"
                 className=""
@@ -103,7 +116,7 @@ const Navbar = () => {
               <span className="absolute right-0 top-0 rounded-full bg-green-800 w-5 h-5 top right p-0 m-0 text-white font-mono text-sm  leading-tight text-center">
                   {wish}
                 </span>
-            </li>
+            </li>}
           </ul>
           <div className="lg:hidden">
             <button
@@ -140,7 +153,7 @@ const Navbar = () => {
                         className="inline-flex items-center"
                       >
                         <svg
-                className="w-8 text-teal-accent-400"
+                className="w-8 "
                 viewBox="0 0 24 24"
                 strokeLinejoin="round"
                 strokeWidth="2"
@@ -207,7 +220,7 @@ const Navbar = () => {
                           About us
                         </Link>
                       </li>
-                      <li onClick={handleCloseToggle} className=" flex items-center gap-2">
+            {   wish>0 &&       <li onClick={handleCloseToggle} className=" flex items-center gap-2">
                         <Link
                           href="/wishlist"
                           aria-label="About us"
@@ -219,8 +232,8 @@ const Navbar = () => {
                         <span className="rounded-full bg-green-800 w-5 h-5 top right p-0 m-0 text-white font-mono text-sm  leading-tight text-center">
                  {wish}
                 </span>
-                      </li>
-                      <li onClick={handleCloseToggle}>
+                      </li>}
+                     {!user.isAuthenticated && <li onClick={handleCloseToggle}>
                         <Link
                           href="/login"
                           aria-label="Sign in"
@@ -229,8 +242,8 @@ const Navbar = () => {
                         >
                           Sign in
                         </Link>
-                      </li>
-                      <li onClick={handleCloseToggle}>
+                      </li>}
+                     {!user.isAuthenticated && <li onClick={handleCloseToggle}>
                         <Link
                           href="/signup"
                           className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-black transition duration-200 rounded shadow-md bg-green-400 hover:bg-green-700 focus:shadow-outline focus:outline-none"
@@ -239,6 +252,13 @@ const Navbar = () => {
                         >
                           Sign up
                         </Link>
+                      </li>}
+                      <li>
+                        <button 
+                        onClick={()=>{setIsModalOpen(true)}}
+                        className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-black transition duration-200 rounded shadow-md bg-green-400 hover:bg-green-700 focus:shadow-outline focus:outline-none">
+                          Sign Out
+                        </button>
                       </li>
                     </ul>
                   </nav>
@@ -248,6 +268,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+      {isModalOpen && <Logout setIsModalOpen={setIsModalOpen}/>}
     </div>
   );
 };

@@ -30,8 +30,8 @@ const Properties = ({properties}:Props) => {
     
     <div className="flex flex-wrap items-center justify-center gap-4">
     {properties &&
-            properties.map((property) => (
-              <HomeProperty key={property._id} property={property} />
+            properties?.map((property) => (
+              <HomeProperty key={property?._id} property={property} />
             ))}
     </div>
    <div className="flex items-center justify-center my-10">
