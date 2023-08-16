@@ -73,10 +73,45 @@ const showUser = async(req, res)=>{
     res.status(StatusCodes.OK).json({success:true, user:req.user})
 }
 
+const loginAdmin = async(req,res)=>{
+
+    const { email , password} = req.body
+
+    if(!email|| !password){
+     throw new BadRequestError("Please Provide All Values")
+    }
+ 
+    const user = await User.findOne({email, role:'admin'})
+ 
+    if(!user){
+     throw new BadRequestError(`No account associated with ${email}`)
+    }
+ 
+  
+    const isPasswordCorrect = await user.comparePassword(password)
+ 
+    if(!isPasswordCorrect){
+     throw new BadRequestError(`Your Password and Email did not match, please check your details and try again`)
+    }
+    
+    const tokenUser = createToken(user)
+ 
+    attachCookiesToResponse({res, user:tokenUser})
+ 
+    res.status(StatusCodes.ACCEPTED).json({user:tokenUser , success:true})
+
+}
+
+const showAdmin = async(req, res)=>{
+    res.status(StatusCodes.OK).json({success:true, user:req.user})
+}
+
 
 module.exports =  {
     register,
     login,
     logout,
-    showUser
+    showUser,
+    loginAdmin,
+    showAdmin
 }
