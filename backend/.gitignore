@@ -1,0 +1,4 @@
+/node_modules
+.env
+/property.json
+/populate.js

@@ -1,10 +1,18 @@
 import React, { ReactNode } from 'react'
-import { Header, Sidebar } from './components';
+import { Header, Sidebar } from '../components';
 import { Outlet } from 'react-router-dom';
+
+import { AuthSession } from '../lib/Authsession';
 interface MainLayoutProps {
     children: ReactNode;
   }
   const MainLayout: React.FC <MainLayoutProps> = () => {
+
+    const user = AuthSession()
+
+    if(!user)return null
+    
+    
   return (
     <div className="flex h-screen overflow-hidden">
     <Sidebar />
@@ -23,4 +31,3 @@ interface MainLayoutProps {
   export default MainLayout
   
   
-

@@ -3,6 +3,7 @@ import toggleSlice from './toggleSlice'
 import loadSlice from './loadSlice'
 import { api } from './Api'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
+import authSlice from './authSlice'
 
 // ...
 
@@ -10,6 +11,7 @@ export const store = configureStore({
   reducer: {
    toggle:toggleSlice,
    load: loadSlice,
+   auth:authSlice,
    [api.reducerPath]: api.reducer
   
   },
