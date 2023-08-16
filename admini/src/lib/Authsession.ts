@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import useSWR from "swr";
 import { baseURL } from "../baseURL";
@@ -10,14 +9,13 @@ const fetcher = async (...args: Parameters<typeof fetch>): Promise<any> => {
 };
 
 export function AuthSession() {
-  const navigate = useNavigate()// Get the router instance
-  const { data, error } = useSWR(
-    `${baseURL}/auth/showUser`,
-    fetcher
-  );
+  const navigate = useNavigate(); // Get the router instance
+  const { data, error } = useSWR(`${baseURL}/auth/showAdmin`, fetcher);
 
   useEffect(() => {
-    if (!data?.user) navigate("/login"); // Use router.push here
+    if (!data?.user) {
+      navigate("/login");
+    } // Use router.push here
   }, [data?.user, navigate]); // Note the change here
 
   return data?.user; // Note the change here

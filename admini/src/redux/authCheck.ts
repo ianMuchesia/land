@@ -14,7 +14,7 @@ export const checkAuthentication=()=>{
         try {
 
        
-            const apiEndpoint = '/auth/showUser';
+            const apiEndpoint = '/auth/showAdmin';
             const url = `${baseURL}${apiEndpoint}`;
             
             const { data } = await axios.get(url, { withCredentials: true });
