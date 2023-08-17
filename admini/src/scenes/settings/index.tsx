@@ -14,7 +14,7 @@ const Settings = () => {
 
   const navigate = useNavigate()
 
-  const loader = useAppSelector(state=>state.load.formLoader)
+  const loader = useAppSelector((state)=>state.load.formLoader)
 
 
   const [ openModal , setOpenModal] = useState(false)

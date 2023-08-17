@@ -3,6 +3,7 @@ import { Icon } from "@iconify/react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { closeToggle, openToggle } from "../redux/toggleSlice";
 import { Link, NavLink } from "react-router-dom";
+import { openModal } from "../redux/modalSlice";
 const Sidebar = () => {
   const dispatch = useAppDispatch();
 
@@ -26,14 +27,15 @@ const Sidebar = () => {
     >
       {/* Sidebar Header */}
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
-        <a href="index.html">
-          <img src={Logo} alt="Logo" />
-        </a>
+        <Link to="/" className="text-4xl text-white">
+          Land Listing
+         {/* // <img src={Logo} alt="Logo" /> */}
+        </Link>
 
         <button className="block lg:hidden" onClick={handleToggle}>
           <Icon
             icon="bi:arrow-right"
-            className="fill-current"
+            className="fill-current text-white"
             width="20"
             height="18"
           />
@@ -145,13 +147,14 @@ const Sidebar = () => {
                   width="18"
                   height="19"
                 />
-                Settings
+                Create
               </NavLink>
             </li>
 
             {/* <!-- Menu Item Settings --> */}
 
             <li
+            onClick={()=>dispatch(openModal())}
                 
                 className="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4  cursor-pointer"
               >

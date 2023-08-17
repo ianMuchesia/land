@@ -23,7 +23,7 @@ interface MainLayoutProps {
     <Sidebar />
     <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
       <Header />
-      {modal && <LogoutModal/>}
+      {/* {modal && <LogoutModal/>} */}
       <main>
         <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
         <Outlet/>

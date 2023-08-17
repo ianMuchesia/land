@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import useSWR from "swr";
 import { baseURL } from "../baseURL";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../redux/hooks";
+import { setIsAuthenticated } from "../redux/authSlice";
 
 const fetcher = async (url: string): Promise<any> => {
   const response = await fetch(url, { credentials: "include" });
@@ -9,6 +11,8 @@ const fetcher = async (url: string): Promise<any> => {
 };
 
 export function AuthSession() {
+
+  const dispatch = useAppDispatch()
   const navigate = useNavigate(); // Get the router instance
   const { data, error } = useSWR(`${baseURL}/auth/showAdmin`, fetcher);
 
@@ -21,6 +25,16 @@ export function AuthSession() {
   }, [data, navigate]); // Note the change here
 
   if (data && data?.success) {
+    
+
+    const {name , userId , role} = data?.user
+    dispatch(setIsAuthenticated({
+        name,
+        userId,
+        role
+    }))
+    
     return true;
+    
   } // Note the change here
 }

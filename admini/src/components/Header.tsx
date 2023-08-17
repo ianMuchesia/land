@@ -2,7 +2,6 @@ import { Icon } from '@iconify/react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { closeToggle, openToggle } from '../redux/toggleSlice';
 import Logo from "../assets/images/logo/logo-icon.svg"
-import User from "../assets/images/user/user-01.png"
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -15,7 +14,11 @@ const Header = () => {
   const toggle = useAppSelector(state=>state.toggle.toggle)
 
 
+  const user = useAppSelector(state=>state.auth.user)
 
+
+
+ 
   const [ dropDown , setDropDown ] = useState(false)
   
   
@@ -87,12 +90,13 @@ const Header = () => {
         onClick={()=>{setDropDown(prevDrop=>!prevDrop)}}
         >
           <span className="hidden text-right lg:block">
-            <span className="block text-sm font-medium text-black dark:text-white">Thomas Anree</span>
-            <span className="block text-xs font-medium">UX Designer</span>
+            <span className="block text-sm font-medium text-black dark:text-white">{user.name}</span>
+            <span className="block text-xs font-medium">Administrator</span>
           </span>
 
-          <span className="h-12 w-12 rounded-full">
-            <img src={User} alt="User" />
+          <span className="h-12 w-12 bg-primary rounded-full p-2">
+            
+          <Icon icon="clarity:administrator-solid" className='text-white h-full w-full' />
           </span>
 
           <Icon icon="teenyicons:down-outline"
@@ -107,16 +111,7 @@ dropDown && (
   <div 
   className="absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
   <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
-    <li>
-      <Link to="/profile"
-        className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
-          <Icon icon="iconamoon:profile-thin" 
-         className="fill-current" width="22" height="22" viewBox="0 0 22 22"
-         />
-        
-        My Profile
-      </Link>
-    </li>
+   
    
     <li>
       <Link to="/settings"
@@ -124,7 +119,7 @@ dropDown && (
           <Icon icon="solar:settings-outline"
           className="fill-current" width="22" height="22" />
      
-        Account Settings
+     Add Lands
       </Link>
     </li>
   </ul>

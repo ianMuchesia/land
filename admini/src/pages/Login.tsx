@@ -3,7 +3,7 @@ import DarkLogo from "../assets/images/logo/logo.svg"
 import LightLogo from "../assets/images/logo/logo-dark.svg"
 import { Icon } from "@iconify/react/dist/iconify.js"
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseURL } from "../baseURL";
 import { ToastContainer, toast } from "react-toastify";
@@ -62,29 +62,15 @@ const Login = () => {
 
       if (!data.success) {
         toast.error(data.msg);
-    } else {
-        if (data.user) {
-            // Check if the necessary cookies are received
-            if (document.cookie.includes('authenticationCookieName')) {
-                // Successful login and cookies received
-                console.log('Login successful');
-            } else {
-                // Successful login but cookies not received
-                console.log('Login successful, but cookies not received');
-            }
-        } else {
-            // Login unsuccessful
-            console.log('Login failed');
-        }
-    }
+    } 
       
-      // setSuccess(true);
-      // reset();
-      // setTimeout(() => {
-      //   navigate("/")
-      //   setSuccess(false);
+      setSuccess(true);
+      reset();
+      setTimeout(() => {
+        navigate("/")
+        setSuccess(false);
        
-      // }, 1000);
+      }, 1000);
     } catch (error: any) {
       console.log(error);
        
@@ -117,10 +103,11 @@ const Login = () => {
       <div className="flex flex-wrap items-center">
         <div className="hidden w-full xl:block xl:w-1/2">
           <div className="py-17.5 px-26 text-center">
-            <a className="mb-5.5 inline-block" href="index.html">
-              <img className="hidden dark:block" src={DarkLogo} alt="Logo" />
-              <img className="dark:hidden" src={LightLogo} alt="Logo" />
-            </a>
+            <Link className="mb-5.5 inline-block text-4xl text-primary" to="/login">
+Land Listing
+              {/* <img className="hidden dark:block" src={DarkLogo} alt="Logo" />
+              <img className="dark:hidden" src={LightLogo} alt="Logo" /> */}
+            </Link>
 
             <p className="font-medium 2xl:px-20">
              Make Sure You never share your password with anyone
