@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AddImage, AddProperty, BreadCrumb, FormLoader } from "../../components";
+import { AddImage, AddProperty, BreadCrumb, FormLoader, LocationModal } from "../../components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -15,6 +15,10 @@ const Settings = () => {
   const navigate = useNavigate()
 
   const loader = useAppSelector(state=>state.load.formLoader)
+
+
+  const [ openModal , setOpenModal] = useState(false)
+
   const [createForm, setCreateForm] = useState({
     title: "",
     area: 0,
@@ -40,11 +44,13 @@ const Settings = () => {
 
 dispatch(setFormLoader())
   try {
-    await axios.post(`${baseURL}/properties`,  {
+  const data =  await axios.post(`${baseURL}/properties`,  {
       title,
       area, price, description, location, mainImage, images,
     },  { withCredentials: true})
     dispatch(setCloseLoader());
+
+    console.log(data)
     toast.success("Created successfully!");
 
     setTimeout(() => {
@@ -79,10 +85,11 @@ dispatch(setFormLoader())
     <div>
       <BreadCrumb page={"Settings"} />
       <ToastContainer />
+      <button className='bg-primary mb-4 text-white px-4 py-2 rounded-lg' onClick={()=>setOpenModal(true)}>Add Location</button>
       <div className="flex flex-col gap-9">
         {/* <!-- Contact Form --> */}
         <form className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark" onSubmit={handleSubmit}>
-          <AddProperty setCreateForm={setCreateForm} createForm={createForm} />
+          <AddProperty  setCreateForm={setCreateForm} createForm={createForm} />
          
             <AddImage
               mainImage={createForm.mainImage}
@@ -97,6 +104,7 @@ dispatch(setFormLoader())
           {loader && <FormLoader />}
         </form>
       </div>
+      {openModal && <LocationModal setOpenModal={setOpenModal}/>}
     </div>
   );
 };

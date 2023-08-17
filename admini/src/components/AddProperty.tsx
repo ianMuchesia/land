@@ -2,6 +2,8 @@ import { Icon } from '@iconify/react';
 import useSWR from "swr";
 import { typeLocation } from '../@types/@types';
 import { baseURL } from '../baseURL';
+import { useState } from 'react';
+import { LocationModal } from '.';
 
 interface Props {
     createForm: {
@@ -38,6 +40,7 @@ interface Props {
           public_id:string;
       }[];
   }>>;
+
   }
 
   const fetcher = async (...args: Parameters<typeof fetch>): Promise<any> => {
@@ -48,6 +51,9 @@ interface Props {
 const AddProperty = ({ setCreateForm, createForm }: Props) => {
 
     const {data , error} = useSWR<typeLocation>(`${baseURL}/location`, fetcher)
+
+
+    
 
 
     const handleChange = (
@@ -64,10 +70,11 @@ const AddProperty = ({ setCreateForm, createForm }: Props) => {
   return (
     <div
     className="">
-    <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
+    <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark flex items-center justify-between">
       <h3 className="font-semibold text-black dark:text-white">
-        Add Land
+         Land Details
       </h3>
+     
     </div>
     <div>
       <div className="p-6.5">
@@ -147,6 +154,7 @@ onChange={handleChange}
         
       </div>
     </div>
+   
   </div>
   )
 }

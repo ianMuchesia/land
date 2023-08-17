@@ -3,6 +3,9 @@ import { typeProperties } from "../../@types/@types"
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { baseURL } from "../../baseURL";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { setCloseLoader, setFormLoader } from "../../redux/loadSlice";
+import { FormLoader } from "..";
 
 interface Props{
   property:typeProperties|null;
@@ -10,24 +13,33 @@ interface Props{
 }
 const DeleteModal = ({property, setOpenModal}:Props) => {
 
+  const dispatch = useAppDispatch();
   const navigate = useNavigate()
+
+  const loading = useAppSelector(state=>state.load.formLoader)
 
 
  const handleDelete = async()=>{
 
 
   try {
-    if(property !== null)
-    {
+   
+     dispatch(setFormLoader())
       await axios.delete(`${baseURL}/properties/${property?._id}`)
       toast.success("deleted succesfully")
+      dispatch(setCloseLoader())
       setOpenModal(false)
       navigate("/")
-    }
+    
    
-  } catch (error) {
+  } catch (error:any) {
     console.log(error)
-    toast.error("Request Failed")
+    dispatch(setCloseLoader())
+    if (error.response?.data?.msg) {
+      toast.error(error.response.data.msg);
+      return;
+    }
+    toast.error("Something wrong happened, try again later")
   }
  }
  
@@ -35,13 +47,13 @@ const DeleteModal = ({property, setOpenModal}:Props) => {
    
     <div className="modal-overlay z-9999 flex items-center justify-center">
    
-   <ToastContainer/>
+  
     <div
      
       tabIndex={-1}
       className=" p-4 overflow-x-hidden overflow-y-auto md:inset-0  max-h-full"
     >
-     
+      <ToastContainer/>
       <div className="relative w-full max-w-md max-h-full">
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
           <button
@@ -83,6 +95,9 @@ const DeleteModal = ({property, setOpenModal}:Props) => {
                 d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
               />
             </svg>
+            <div className="flex justify-center items-center">
+              {loading && <FormLoader/>}
+            </div>
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
               Are you sure you want to delete {property?.title}?
             </h3>

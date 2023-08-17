@@ -150,6 +150,9 @@ const createProperty = async (req, res) => {
     images: responseImages,
   });
 
+
+  
+
   res.status(StatusCodes.CREATED).json({ success: true, property });
 };
 

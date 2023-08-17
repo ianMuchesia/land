@@ -39,7 +39,7 @@ const Image = ({imageObject, title, property}:Props) => {
             public_id:imageObject.public_id,
             _id:imageObject._id,
         }
-        console.log(image)
+      
         try {
             const { data} =await axios.patch(`${baseURL}/properties/image/${property}`,image, {withCredentials:true} )
 
