@@ -1,5 +1,5 @@
 
-import { AppDispatch } from "."
+import { AppDispatch } from "./"
 
 import axios from "axios"
 import { baseURL } from "../baseURL"

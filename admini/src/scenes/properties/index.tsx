@@ -3,6 +3,7 @@ import { DeleteModal, Error, FilterProperties, FormLoader, Pagination } from '..
 import { PaginationAction, PaginationState, typeProperties } from '../../@types/@types';
 import { useReducer, useState } from 'react';
 import { useGetAllPropertiesQuery } from '../../redux/Api';
+import { Link } from 'react-router-dom';
 
 
 interface queryData {
@@ -166,10 +167,10 @@ const Properties
           <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
             <div className="flex items-center space-x-3.5">
              
-              <button className="hover:text-primary">
+              <Link to={`/properties/${property?._id}`} className="hover:text-primary">
               <Icon icon="fluent:edit-16-regular" className="fill-current" width="18" height="18"/>
               
-              </button>
+              </Link>
               <button className="hover:text-primary" onClick={()=>handleDeleteClick(property)}>
               <Icon icon="openmoji:delete" className="fill-current" width="18" height="18" />
               

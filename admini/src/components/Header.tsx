@@ -4,6 +4,9 @@ import { closeToggle, openToggle } from '../redux/toggleSlice';
 import Logo from "../assets/images/logo/logo-icon.svg"
 import User from "../assets/images/user/user-01.png"
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+import { openModal } from '../redux/modalSlice';
 
 const Header = () => {
 
@@ -11,7 +14,10 @@ const Header = () => {
 
   const toggle = useAppSelector(state=>state.toggle.toggle)
 
+
+
   const [ dropDown , setDropDown ] = useState(false)
+  
   
   const handleToggle = ()=>{
     if(toggle){
@@ -102,27 +108,28 @@ dropDown && (
   className="absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
   <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
     <li>
-      <a href="profile.html"
+      <Link to="/profile"
         className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
           <Icon icon="iconamoon:profile-thin" 
          className="fill-current" width="22" height="22" viewBox="0 0 22 22"
          />
         
         My Profile
-      </a>
+      </Link>
     </li>
    
     <li>
-      <a href="settings.html"
+      <Link to="/settings"
         className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
           <Icon icon="solar:settings-outline"
           className="fill-current" width="22" height="22" />
      
         Account Settings
-      </a>
+      </Link>
     </li>
   </ul>
   <button
+  onClick={()=>{dispatch(openModal())}}
     className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
     <Icon icon="basil:logout-outline" className="fill-current" width="22" height="22" />
   
@@ -135,6 +142,7 @@ dropDown && (
         {/* <!-- Dropdown End --> */}
       </div>
         </div>
+       
 </header>
   )
 }

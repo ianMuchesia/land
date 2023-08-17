@@ -15,11 +15,9 @@ const getSingleProperty = async (req, res) => {
   const { id } = req.params;
 
   const property = await Property.findById(id).populate({
-    path:"location",
-    select:"name",
+    path: "location",
+    select: "name",
   });
-;
-
   if (!property) {
     throw new NotFoundError(`No property found matching the id:${id}`);
   }
@@ -38,7 +36,7 @@ const getAllProperties = async (req, res) => {
   }
 
   if (location) {
-    queryObject.location ={ _id:location};
+    queryObject.location = { _id: location };
   }
 
   if (search) {
@@ -72,8 +70,8 @@ const getAllProperties = async (req, res) => {
   }
 
   let result = Property.find(queryObject).populate({
-    path:"location",
-    select:"name",
+    path: "location",
+    select: "name",
   });
 
   const totalItems = await Property.find(queryObject).countDocuments();
@@ -103,15 +101,9 @@ const getAllProperties = async (req, res) => {
   });
 };
 
-
-
-
-
 const createProperty = async (req, res) => {
   const { title, description, price, location, area, images, mainImage } =
     req.body;
-
-   
 
   if (
     !title ||
@@ -145,8 +137,6 @@ const createProperty = async (req, res) => {
     ),
   ]);
 
-  
-
   const property = await Property.create({
     title,
     description,
@@ -166,79 +156,122 @@ const createProperty = async (req, res) => {
 
 
 
-const updateProperty = async (req, res)=>{
+
+
+
+
+const updateProperty = async (req, res) => {
   const { id } = req.params;
-  const { title, description, price, location, area, images, mainImage } =
-  req.body;
+  const { title, description, price, location, area,  } =
+    req.body;
+
+  if (
+    !title ||
+    !description ||
+    !price ||
+    !location ||
+    !area 
+  ) {
+    throw new BadRequestError("Please provide all values");
+  }
+
+  const property = await Property.findById(id);
+
+  if (!property) {
+    throw new NotFoundError(`No property found matching the id:${id}`);
+  }
+
+  
+  // Update properties on the document instance
+  property.title = title;
+  property.description = description;
+  property.price = price;
+  property.location = location;
+  property.area = area;
+
+
+  // Save the changes to the database
+  await property.save();
+  
+
+  res.status(StatusCodes.CREATED).json({ success: true, property });
+};
+
+
+
+
+const updateImage = async (req, res) => {
+  const image = req.body;
+  const { id } = req.params;
+
+
+
+ try {
+  const property = await Property.findById(id);
+
+  if (!property) {
+    throw new NotFoundError(`No property found matching the id:${id}`);
+  }
+
+  if (image.name === "main image") {
+    await cloudinary.uploader.destroy(image.public_id, (error, result) => {
+      if (error) {
+        console.log(error)
+        throw new BadRequestError(error.message);
+      }
+    });
+
+
+
+    const responseMainImage = await cloudinary.uploader.upload(image.url, {
+      folder: "land_listing",
+      public_id: `${property.title}-mainImage`,
+    });
+
+    console.log("am here 2")
+    property.mainImage.url = responseMainImage.secure_url;
+    property.mainImage.public_id = responseMainImage.public_id;
 
  
+    await property.save();
 
-if (
-  !title ||
-  !description ||
-  !price ||
-  !location ||
-  !area ||
-  !images ||
-  !mainImage.url
-) {
-  throw new BadRequestError("Please provide all values");
-}
+    return res
+      .status(StatusCodes.CREATED)
+      .json({ success: true, image: property.mainImage });
+  } else {
+    await cloudinary.uploader.destroy(image.public_id, (error, result) => {
+      if (error) {
+        throw new BadRequestError(error);
+      }
+    });
 
+    const responseImage = await cloudinary.uploader.upload(image.url, {
+      folder: "land_listing",
+      public_id: `${property.title}-${image.name}`,
+    });
 
-const property = await Property.findById(id);
+    const imageIndex = property.images.findIndex(img => img._id.toString() === image._id);
 
-if (!property) {
-  throw new NotFoundError(`No property found matching the id:${id}`);
-}
+    if (imageIndex === -1) {
+      throw new NotFoundError(`No image found matching the id:${image._id}`);
+    }
 
-await cloudinary.uploader.destroy(property.mainImage.public_id)
+    property.images[imageIndex].url = responseImage.secure_url; // Update the URL
+    property.images[imageIndex].public_id = responseImage.public_id; // Update the public_id
 
-for (const image of property.images) {
-  await cloudinary.uploader.destroy(image.public_id);
+    
+  
+
+    await property.save();
+
+    return res
+      .status(StatusCodes.CREATED)
+      .json({ success: true, image: property.images[imageIndex] });
+  }
+ } catch (error) {
+  console.log(error)
  }
-
-
-
- const [responseMainImage, responseImages] = await Promise.all([
-  cloudinary.uploader.upload(mainImage.url, {
-    folder: "land_listing",
-    public_id: `${title}-mainImage`,
-  }),
-  Promise.all(
-    images.map((image, index) =>
-      cloudinary.uploader.upload(image.url, {
-        folder: "land_listing",
-        public_id: `${title}-${index}`,
-      })
-    )
-  ).then((responseImages) =>
-    responseImages.map((responseImage) => ({
-      url: responseImage.secure_url,
-      public_id: responseImage.public_id,
-    }))
-  ),
-]);
-
-// Update properties on the document instance
-property.title = title;
-property.description = description;
-property.price = price;
-property.location = location;
-property.area = area;
-property.mainImage.url = responseMainImage.secure_url;
-property.mainImage.public_id = responseMainImage.public_id;
-property.images = responseImages;
-
-// Save the changes to the database
-await property.save();
-console.log("success")
-
-res.status(StatusCodes.CREATED).json({ success: true, property });
-
-}
-
-
+};
 
 
 
@@ -251,11 +284,11 @@ const deleteProperty = async (req, res) => {
   if (!property) {
     throw new NotFoundError(`No property found matching the id:${id}`);
   }
-  await cloudinary.uploader.destroy(property.mainImage.public_id)
+  await cloudinary.uploader.destroy(property.mainImage.public_id);
 
   for (const image of property.images) {
     await cloudinary.uploader.destroy(image.public_id);
-   }
+  }
   await property.deleteOne();
 
   res.status(StatusCodes.ACCEPTED).json({ success: true });
@@ -267,4 +300,5 @@ module.exports = {
   deleteProperty,
   createProperty,
   updateProperty,
+  updateImage,
 };

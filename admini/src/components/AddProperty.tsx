@@ -10,20 +10,34 @@ interface Props {
       price: number;
       description: string;
       location: string;
-      mainImage: { url: string };
-      images: { url: string }[];
+      mainImage: {
+          url: string;
+          _id: string;
+          public_id:string;
+      };
+      images: {
+          url: string;
+          _id: string;
+          public_id:string;
+      }[];
     };
-    setCreateForm: React.Dispatch<
-      React.SetStateAction<{
-        title: string;
-        area: number;
-        price: number;
-        description: string;
-        location: string;
-        mainImage: { url: string };
-        images: { url: string }[];
-      }>
-    >;
+    setCreateForm: React.Dispatch<React.SetStateAction<{
+      title: string;
+      area: number;
+      price: number;
+      description: string;
+      location: string;
+      mainImage: {
+          url: string;
+          _id: string;
+          public_id:string;
+      };
+      images: {
+          url: string;
+          _id: string;
+          public_id:string;
+      }[];
+  }>>;
   }
 
   const fetcher = async (...args: Parameters<typeof fetch>): Promise<any> => {
@@ -102,6 +116,7 @@ const AddProperty = ({ setCreateForm, createForm }: Props) => {
             <select
 
 name="location"
+value={createForm.location}
 onChange={handleChange}
               className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
                  <option value="">--please select--</option>
@@ -109,7 +124,7 @@ onChange={handleChange}
            <option value={location._id} key={location._id}>{location.name}</option>
          
          ))}
-         {error && <option value="">{error}</option>}
+         {error && <option value="">{error.message}</option>}
             </select>
             <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2">
             <Icon icon="grommet-icons:down" className="fill-current" width="24" height="24" viewBox="0 0 24 24" />

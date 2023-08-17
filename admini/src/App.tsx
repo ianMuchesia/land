@@ -6,6 +6,7 @@ import Customers from "./scenes/customers";
 import Settings from "./scenes/settings";
 import Profile from "./scenes/profile";
 import { Login, MainLayout } from "./pages";
+import Edit from "./scenes/edit";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
           <Route path="/properties" element={<Properties />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/customers" element={<Customers />} />
-
+          <Route path="/properties/:propertyID" element={<Edit/>} />
           <Route path="/settings" element={<Settings />} />
         </Route>
         <Route path="/login" element={<Login />} />

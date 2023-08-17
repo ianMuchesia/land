@@ -38,7 +38,8 @@ app.set("trust proxy", 1);
 ); */
 
 app.use(helmet());
-app.use(cors({ origin: [process.env.CLIENT_SIDE_URL, "http://localhost:3000", "http://localhost:5173"], credentials: true ,  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",}));
+
+ app.use(cors({ origin: [process.env.CLIENT_SIDE_URL, "http://localhost:5173", "http://localhost:3000"], credentials: true ,  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",}));
 app.use(xss());
 app.use(mongoSanitize());
 

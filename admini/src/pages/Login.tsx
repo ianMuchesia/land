@@ -49,25 +49,52 @@ const Login = () => {
           email:form.email,
           password:form.password,
         
-        }
+        },{
+          withCredentials: true,
+      }
       );
 
+      console.log(document.cookie)
       console.log(data);
       if (!data.success) {
         toast.error(data.msg);
       }
 
+      if (!data.success) {
+        toast.error(data.msg);
+    } else {
+        if (data.user) {
+            // Check if the necessary cookies are received
+            if (document.cookie.includes('authenticationCookieName')) {
+                // Successful login and cookies received
+                console.log('Login successful');
+            } else {
+                // Successful login but cookies not received
+                console.log('Login successful, but cookies not received');
+            }
+        } else {
+            // Login unsuccessful
+            console.log('Login failed');
+        }
+    }
       
-      setSuccess(true);
-      reset();
-      setTimeout(() => {
-        navigate("/")
-        setSuccess(false);
+      // setSuccess(true);
+      // reset();
+      // setTimeout(() => {
+      //   navigate("/")
+      //   setSuccess(false);
        
-      }, 1000);
+      // }, 1000);
     } catch (error: any) {
       console.log(error);
-      toast.error(error.message);
+       
+          
+      if (error.response?.data?.msg) {
+        toast.error(error.response.data.msg);
+        return;
+      }
+      toast.error("Something wrong happened try again later");
+    
     }
   };
 
@@ -118,7 +145,7 @@ const Login = () => {
                 <label className="mb-2.5 block font-medium text-black dark:text-white">Email</label>
                 <div className="relative">
                   <input type="email" placeholder="Enter your email"
-                  {...register("email", {required:"Your Email Number is required"}) }
+                  {...register("email", {required:"Your Email  is required"}) }
                     className={`w-full placeholder:w-full  rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary  ${
                       errors.email
                         ? "border-[#FF0000] border-2 focus:outline-[#FF0000]"
@@ -132,7 +159,7 @@ const Login = () => {
                   </span>
                 </div>
                 <span className="text-[#FF0000]">
-                      {errors.password?.message}
+                      {errors.email?.message}
                     </span>
               </div>
 
@@ -140,7 +167,7 @@ const Login = () => {
                 <label className="mb-2.5 block font-medium text-black dark:text-white">Re-type Password</label>
                 <div className="relative">
                   <input type="password" placeholder="Do Not Share Password"
-                  {...register("password", {required:"Your Email Number is required"}) }
+                  {...register("password", {required:"Password is required"}) }
                     className={`w-full rounded-lg  bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${
                       errors.password
                         ? "border-[#FF0000] border-2 focus:outline-[#FF0000]"

@@ -6,6 +6,8 @@ export interface userAuth {
 
 export interface typeImage{
   url:string;
+  _id:string;
+  public_id:string;
 }
 
 export interface typeProperties {

@@ -8,15 +8,15 @@ interface Props {
         price: number;
         description: string;
         location: string;
-        mainImage: { url: string };
-        images: { url: string }[];
+        mainImage: typeImage;
+    images: typeImage[];
       }>
     >;
     mainImage: typeImage;
     images: typeImage[];
   }
 
-const AddImage = ({ mainImage, setCreateForm, images }: Props) => {
+const AddImage = ({  setCreateForm}: Props) => {
 
     const handleMainFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -45,7 +45,7 @@ const AddImage = ({ mainImage, setCreateForm, images }: Props) => {
             const updatedImages = prevForm.images.filter((img) => img.url !== "");
             return {
             ...prevForm,
-            images: [ { url: reader.result as string },...updatedImages],
+            images: [ { url: reader.result as string, public_id:"",_id:""},...updatedImages],
           }});
         };
         reader.readAsDataURL(file as Blob);

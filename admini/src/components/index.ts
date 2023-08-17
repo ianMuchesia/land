@@ -11,11 +11,21 @@ import Pagination from "./Pagination";
 import Sidebar from "./Sidebar";
 import DeleteModal from "./modals/DeleteModal";
 import LocationModal from "./modals/LocationModal";
-
-
-
-
+import LogoutModal from "./modals/LogoutModal";
 
 export {
-    LocationModal, Loader, Header, BreadCrumb, Sidebar, AddProperty, AddImage, FormLoader, FilterProperties, Pagination,FilterCustomers,Error, DeleteModal
-}
+  LogoutModal,
+  LocationModal,
+  Loader,
+  Header,
+  BreadCrumb,
+  Sidebar,
+  AddProperty,
+  AddImage,
+  FormLoader,
+  FilterProperties,
+  Pagination,
+  FilterCustomers,
+  Error,
+  DeleteModal,
+};

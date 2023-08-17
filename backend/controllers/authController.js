@@ -55,6 +55,7 @@ const login = async(req, res)=>{
 
    attachCookiesToResponse({res, user:tokenUser})
 
+
    res.status(StatusCodes.ACCEPTED).json({user:tokenUser , success:true})
 }
 
@@ -97,8 +98,14 @@ const loginAdmin = async(req,res)=>{
     const tokenUser = createToken(user)
  
     attachCookiesToResponse({res, user:tokenUser})
+  
  
-    res.status(StatusCodes.ACCEPTED).json({user:tokenUser , success:true})
+       // Check if the cookies were successfully attached before considering the login successful
+       if (!res.headersSent && res.cookies) {
+        res.status(StatusCodes.ACCEPTED).json({ user: tokenUser, success: true });
+    } else {
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: "Login failed. Cookies were not set." });
+    }
 
 }
 

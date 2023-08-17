@@ -6,6 +6,7 @@ const {
   deleteProperty,
   getAllProperties,
   updateProperty,
+  updateImage,
 } = require("../controllers/propertyController");
 const { authorizePermission, authenticateUser } = require("../middleware/authentication");
 
@@ -15,6 +16,7 @@ router.get("/", getAllProperties);
 router.get("/:id", getSingleProperty);
 router.post("/", createProperty);
 router.patch("/:id",updateProperty)
+router.patch("/image/:id",updateImage)
 router.delete("/:id",deleteProperty )
 
 module.exports = router;

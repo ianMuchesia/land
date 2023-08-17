@@ -1,27 +1,24 @@
-
 import Logo from "../assets/images/logo/logo.svg"; // Import SVG
 import { Icon } from "@iconify/react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { closeToggle, openToggle } from "../redux/toggleSlice";
 import { Link, NavLink } from "react-router-dom";
 const Sidebar = () => {
+  const dispatch = useAppDispatch();
 
-  const dispatch = useAppDispatch()
+  const toggle = useAppSelector((state) => state.toggle.toggle);
 
-  const toggle = useAppSelector(state=>state.toggle.toggle)
-  
-  const handleToggle = ()=>{
-    if(toggle){
-      dispatch(closeToggle())
-    }else{
-      dispatch(openToggle())
+  const handleToggle = () => {
+    if (toggle) {
+      dispatch(closeToggle());
+    } else {
+      dispatch(openToggle());
     }
-  }
+  };
 
-  const active =({ isActive }:{isActive:boolean})=>
-  (isActive ? 'bg-graydark dark:bg-meta-4':'')
+  const active = ({ isActive }: { isActive: boolean }) =>
+    isActive ? "bg-graydark dark:bg-meta-4" : "";
 
-  
   return (
     <aside
       className={`${toggle ? "translate-x-0" : "-translate-x-full"}
@@ -33,10 +30,7 @@ const Sidebar = () => {
           <img src={Logo} alt="Logo" />
         </a>
 
-        <button
-          className="block lg:hidden"
-          onClick={handleToggle}
-        >
+        <button className="block lg:hidden" onClick={handleToggle}>
           <Icon
             icon="bi:arrow-right"
             className="fill-current"
@@ -58,8 +52,9 @@ const Sidebar = () => {
           <ul className="mb-6 flex flex-col gap-1.5">
             {/* <!-- Menu Item Dashboard --> */}
             <li>
-              <NavLink to="/"
-                className={`${active} group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4`}               
+              <NavLink
+                to="/"
+                className={`${active} group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4`}
               >
                 <Icon
                   icon="radix-icons:dashboard"
@@ -76,16 +71,14 @@ const Sidebar = () => {
                   height="20"
                 /> */}
               </NavLink>
-
-      
             </li>
             {/* <!-- Menu Item Dashboard --> */}
 
             {/* <!-- Menu Item Customers --> */}
             <li>
-              <NavLink to="/customers"
+              <NavLink
+                to="/customers"
                 className="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-               
 
                 //className="{ 'bg-graydark dark:bg-meta-4': (selected === 'Calendar') && (page === 'calendar') }"
               >
@@ -100,11 +93,11 @@ const Sidebar = () => {
             </li>
             {/* <!-- Menu Item Customers --> */}
 
-               {/* <!-- Menu Item Properties --> */}
-               <li>
-              <NavLink to="/properties"
+            {/* <!-- Menu Item Properties --> */}
+            <li>
+              <NavLink
+                to="/properties"
                 className="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-               
 
                 //className="{ 'bg-graydark dark:bg-meta-4': (selected === 'Calendar') && (page === 'calendar') }"
               >
@@ -120,10 +113,10 @@ const Sidebar = () => {
             {/* <!-- Menu Item Properties --> */}
 
             {/* <!-- Menu Item Profile --> */}
-            <li>
-              <NavLink to="/profile"
+            {/* <li>
+              <NavLink
+                to="/profile"
                 className="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-         
 
                 // className="{ 'bg-graydark dark:bg-meta-4': (selected === 'Profile') && (page === 'profile') }"
                 //className="page === 'profile' && 'bg-graydark'"
@@ -136,12 +129,12 @@ const Sidebar = () => {
                 />
                 Profile
               </NavLink>
-            </li>
+            </li> */}
 
             <li>
-              <NavLink to="/settings"
+              <NavLink
+                to="/settings"
                 className="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
-              
 
                 //className="{ 'bg-graydark dark:bg-meta-4': (selected === 'Settings') && (page === 'settings') }"
                 // className="page === 'settings' && 'bg-graydark'"
@@ -152,11 +145,25 @@ const Sidebar = () => {
                   width="18"
                   height="19"
                 />
-             
                 Settings
               </NavLink>
             </li>
+
             {/* <!-- Menu Item Settings --> */}
+
+            <li
+                
+                className="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4  cursor-pointer"
+              >
+                <Icon
+                  icon="material-symbols:logout"
+                  className="fill-current color-[#fff]"
+                  width="18"
+                  height="19"
+                />
+                Logout
+            
+            </li>
           </ul>
         </div>
       </div>

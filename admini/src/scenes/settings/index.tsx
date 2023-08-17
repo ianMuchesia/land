@@ -21,10 +21,8 @@ const Settings = () => {
     price: 0,
     description: "",
     location: "",
-    mainImage: {
-      url: "",
-    },
-    images: [{ url: "" }],
+    mainImage: {url:"", _id:"", public_id:""},
+    images: [{url:"", _id:"", public_id:""}],
   });
 
 
@@ -57,8 +55,8 @@ dispatch(setFormLoader())
       price: 0,
       description: "",
       location: "",
-      mainImage: {url:""},
-      images: [{url:""}],
+      mainImage: {url:"", _id:"", public_id:""},
+      images: [{url:"", _id:"", public_id:""}],
      })
      
    
