@@ -1,9 +1,9 @@
-import Logo from "../assets/images/logo/logo.svg"; // Import SVG
-import { Icon } from "@iconify/react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { closeToggle, openToggle } from "../redux/toggleSlice";
 import { Link, NavLink } from "react-router-dom";
 import { openModal } from "../redux/modalSlice";
+import { Icon } from '@iconify/react';
+
 const Sidebar = () => {
   const dispatch = useAppDispatch();
 
@@ -34,7 +34,7 @@ const Sidebar = () => {
 
         <button className="block lg:hidden" onClick={handleToggle}>
           <Icon
-            icon="bi:arrow-right"
+            icon="bi:arrow-left"
             className="fill-current text-white"
             width="20"
             height="18"

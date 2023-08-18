@@ -1,10 +1,10 @@
-import React, { ReactNode, useEffect } from 'react'
+import React, { ReactNode } from 'react'
 import { Header, LogoutModal, Sidebar } from '../components';
 import { Outlet } from 'react-router-dom';
 
 import { AuthSession } from '../lib/Authsession';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { checkAuthentication } from '../redux/authCheck';
+import {  useAppSelector } from '../redux/hooks';
+
 interface MainLayoutProps {
     children: ReactNode;
   }
@@ -23,7 +23,7 @@ interface MainLayoutProps {
     <Sidebar />
     <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
       <Header />
-      {/* {modal && <LogoutModal/>} */}
+      {modal && <LogoutModal/>}
       <main>
         <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
         <Outlet/>

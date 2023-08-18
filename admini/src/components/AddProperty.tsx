@@ -2,8 +2,6 @@ import { Icon } from '@iconify/react';
 import useSWR from "swr";
 import { typeLocation } from '../@types/@types';
 import { baseURL } from '../baseURL';
-import { useState } from 'react';
-import { LocationModal } from '.';
 
 interface Props {
     createForm: {

@@ -14,7 +14,7 @@ export function AuthSession() {
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate(); // Get the router instance
-  const { data, error } = useSWR(`${baseURL}/auth/showAdmin`, fetcher);
+  const { data } = useSWR(`${baseURL}/auth/showAdmin`, fetcher);
 
   
 

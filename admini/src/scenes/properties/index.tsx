@@ -13,7 +13,7 @@ interface queryData {
     totalProperties: number;
   };
   isLoading: boolean;
-  isSuccess:boolean;
+
   error:{
     message:string;
   }
@@ -71,7 +71,7 @@ const Properties
   });
 
 
-  const { data, isLoading, isSuccess, error } = useGetAllPropertiesQuery<queryData>({
+  const { data, isLoading,  error } = useGetAllPropertiesQuery<queryData>({
     location: filter.location,
     sort: filter.sort,
     numericFilters: `area<=${filter.size_max},price>=${filter.price_min}`,

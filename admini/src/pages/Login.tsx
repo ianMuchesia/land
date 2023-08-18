@@ -1,13 +1,12 @@
 import LoginSVG from "../assets/LoginSVG"
-import DarkLogo from "../assets/images/logo/logo.svg"
-import LightLogo from "../assets/images/logo/logo-dark.svg"
+
 import { Icon } from "@iconify/react/dist/iconify.js"
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseURL } from "../baseURL";
 import { ToastContainer, toast } from "react-toastify";
-import { useState } from "react";
+
 
 
 
@@ -36,7 +35,7 @@ const Login = () => {
 
   const navigate = useNavigate()
 
-  const [success, setSuccess] = useState(false);
+  
 
 
 
@@ -63,11 +62,11 @@ const Login = () => {
         toast.error(data.msg);
     } 
       
-      setSuccess(true);
+  
       reset();
       setTimeout(() => {
         navigate("/")
-        setSuccess(false);
+      
        
       }, 1000);
     } catch (error: any) {
