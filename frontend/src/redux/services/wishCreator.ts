@@ -70,6 +70,7 @@ export const removeWishlistData = (property: typeProperties) => {
               );
               
               const data = response.data;
+            
               
           if (!data.success) {
           }

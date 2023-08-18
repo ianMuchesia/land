@@ -31,7 +31,7 @@ const user = useAppSelector(state=>state.auth.isAuthenticated)
     }
    await dispatch(sendWishlistData(property))
 
-    console.log(true)
+   
  
   }
   return (

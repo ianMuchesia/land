@@ -1,6 +1,7 @@
 import { typeProperties } from "@/@types/@types";
 import { removeItem } from "@/redux/Features/wishlistSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/Hooks";
+import { removeWishlistData } from "@/redux/services/wishCreator";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
 import React from "react";
@@ -11,7 +12,7 @@ const Wishlist = () => {
   const wishList = useAppSelector((state) => state.wish.itemsList);
 
   const handleRemoveFromWishList = (item: typeProperties) => {
-    dispatch(removeItem(item));
+    dispatch(removeWishlistData(item));
   };
 
   return (

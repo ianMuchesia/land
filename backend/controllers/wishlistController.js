@@ -39,7 +39,7 @@ const wishlist = await Wishlist.findOne({ user: req.user.userId })
       populate: {
         path: "property",
        
-        select: "name price location", // Specify the fields you want to populate
+        select: "title price  area mainImage ", // Specify the fields you want to populate
       },
     })
     .exec();

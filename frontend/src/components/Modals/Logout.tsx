@@ -21,7 +21,7 @@ const Logout = ({setIsModalOpen}:Props) => {
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/logout`, {withCredentials:true}
       );
 
-      console.log(data)
+      
      
       setTimeout(() => {
        

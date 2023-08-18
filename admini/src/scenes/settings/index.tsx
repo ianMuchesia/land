@@ -44,13 +44,13 @@ const Settings = () => {
 
 dispatch(setFormLoader())
   try {
-  const data =  await axios.post(`${baseURL}/properties`,  {
+ await axios.post(`${baseURL}/properties`,  {
       title,
       area, price, description, location, mainImage, images,
     },  { withCredentials: true})
     dispatch(setCloseLoader());
 
-    console.log(data)
+   
     toast.success("Created successfully!");
 
     setTimeout(() => {

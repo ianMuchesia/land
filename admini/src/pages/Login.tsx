@@ -54,8 +54,7 @@ const Login = () => {
       }
       );
 
-      console.log(document.cookie)
-      console.log(data);
+      
       if (!data.success) {
         toast.error(data.msg);
       }

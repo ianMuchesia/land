@@ -19,7 +19,7 @@ export const checkAuthentication=()=>{
             
             const { data } = await axios.get(url, { withCredentials: true });
                     
-            console.log(data)
+        
             if(data?.success){
                 const {name , userId , role} = data?.user
                 dispatch(setIsAuthenticated({

@@ -57,7 +57,7 @@ const SMS = ({ property, setModalState }: Props) => {
         }
       );
 
-      console.log(data);
+     
       if (!data.success) {
         toast.error(data.msg);
       }

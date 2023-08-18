@@ -17,7 +17,6 @@ const LogoutModal = () => {
         withCredentials: true,
       });
 
-      console.log(data);
 
       setTimeout(() => {
         toast.success("Logout successful!");

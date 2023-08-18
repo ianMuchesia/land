@@ -42,7 +42,7 @@ const Whatsapp = ({ property, setModalState }: Props) => {
   const [success, setSuccess] = useState(false);
 
   const FormOnSubmit: SubmitHandler<Inputs> = async (form) => {
-    console.log(form);
+  
     try {
       const { data } = await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/communication/whatsapp`,
@@ -54,7 +54,7 @@ const Whatsapp = ({ property, setModalState }: Props) => {
         }
       );
 
-      console.log(data);
+     
       if (!data.success) {
         toast.error(data.msg);
       }
