@@ -13,7 +13,7 @@ const LogoutModal = () => {
 
   const handleLogout = async () => {
     try {
-      const { data } = await axios.get(`${baseURL}/auth/logout`, {
+   await axios.get(`${baseURL}/auth/logout`, {
         withCredentials: true,
       });
 
