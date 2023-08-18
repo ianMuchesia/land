@@ -31,12 +31,12 @@ const notFoundMiddleWare = require("./middleware/not-found");
 const errorHandlerMiddleWare = require("./middleware/error-handler");
 
 app.set("trust proxy", 1);
-/* app.use(
+app.use(
   rateLimiter({
     windowMs: 15 * 60 * 1000,
     max: 60,
   })
-); */
+); 
 
 app.use(helmet());
 
