@@ -2,16 +2,17 @@ import { typeProperties } from "@/@types/@types";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React, { useState } from "react";
 import { Phone, SMS, Whatsapp } from "../Modals";
-import { useAppDispatch } from "@/redux/Hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/Hooks";
 import { addItem } from "@/redux/Features/wishlistSlice";
+import { removeWishlistData, sendWishlistData } from "@/redux/services/wishCreator";
 interface Props {
   property: typeProperties;
 }
 
 const Property = ({ property }: Props) => {
+  const dispatch = useAppDispatch();
 
-  const dispatch= useAppDispatch()
-
+  const user = useAppSelector((state) => state.auth.isAuthenticated);
 
   const [modalState, setModalState] = useState({
     isPhone: false,
@@ -19,12 +20,12 @@ const Property = ({ property }: Props) => {
     isWhatsapp: false,
   });
 
-
-  const handleAddToWishList=()=>{
-    dispatch(addItem(property))
-  }
-
-
+  const handleAddToWishList = async () => {
+    if (!user) {
+      return;
+    }
+    await dispatch(sendWishlistData(property));
+  };
 
   return (
     <div className="flex flex-col justify-center my-10">
@@ -90,26 +91,36 @@ const Property = ({ property }: Props) => {
             </span>
           </p>
           <div className="mt-6 flex items-center gap-8 text-xs">
-            <div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2 cursor-pointer"
-			onClick={()=>setModalState((prev)=>({...prev,isPhone:true}))}>
+            <div
+              className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2 cursor-pointer"
+              onClick={() =>
+                setModalState((prev) => ({ ...prev, isPhone: true }))
+              }
+            >
               <Icon
                 icon="solar:phone-outline"
                 className="h-10 w-10 text-green-800"
               />
             </div>
 
-            <div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2 cursor-pointer"
-			onClick={()=>setModalState((prev)=>({...prev,isSMS:true}))}
-			>
+            <div
+              className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2 cursor-pointer"
+              onClick={() =>
+                setModalState((prev) => ({ ...prev, isSMS: true }))
+              }
+            >
               <Icon
                 icon="ic:outline-sms"
                 className="h-10 w-10 text-green-800"
               />
             </div>
 
-            <div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2 cursor-pointer"
-			onClick={()=>setModalState((prev)=>({...prev,isWhatsapp:true}))}
-			>
+            <div
+              className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2 cursor-pointer"
+              onClick={() =>
+                setModalState((prev) => ({ ...prev, isWhatsapp: true }))
+              }
+            >
               <Icon
                 icon="dashicons:whatsapp"
                 className="h-10 w-10 text-green-800 "
@@ -118,11 +129,17 @@ const Property = ({ property }: Props) => {
           </div>
         </div>
       </div>
-	  <div className="">
-		{modalState.isPhone && <Phone property={property} setModalState={setModalState}/>}
-		{modalState.isSMS && <SMS property={property} setModalState={setModalState}/>}
-		{modalState.isWhatsapp && <Whatsapp property={property} setModalState={setModalState}/>}
-	  </div>
+      <div className="">
+        {modalState.isPhone && (
+          <Phone property={property} setModalState={setModalState} />
+        )}
+        {modalState.isSMS && (
+          <SMS property={property} setModalState={setModalState} />
+        )}
+        {modalState.isWhatsapp && (
+          <Whatsapp property={property} setModalState={setModalState} />
+        )}
+      </div>
     </div>
   );
 };

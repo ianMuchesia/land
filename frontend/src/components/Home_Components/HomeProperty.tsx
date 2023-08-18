@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import { typeProperties } from "@/@types/@types";
-import { useAppDispatch } from "@/redux/Hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/Hooks";
 import { addItem } from "@/redux/Features/wishlistSlice";
 import { Phone, SMS, Whatsapp } from "../Modals";
+import { showNotification } from "@/redux/Features/uiSlice";
+import { ToastContainer, toast } from "react-toastify";
+import { Diphylleia } from "next/font/google";
+import { sendWishlistData } from "@/redux/services/wishCreator";
 
 interface Props{
     property:typeProperties;
@@ -19,14 +23,24 @@ const [modalState, setModalState] = useState({
 });
 
 
-  const handleAddToWishList=()=>{
-    dispatch(addItem(property))
+const user = useAppSelector(state=>state.auth.isAuthenticated)
+
+  const handleAddToWishList=async()=>{
+    if(!user){
+    return;
+    }
+   await dispatch(sendWishlistData(property))
+
+    console.log(true)
+ 
   }
   return (
     <div
       
       className="block rounded-lg p-4 shadow-sm shadow-indigo-100 bg-[#fafafa]"
     >
+
+
       <img
         alt="Home"
         src={property?.mainImage.url}

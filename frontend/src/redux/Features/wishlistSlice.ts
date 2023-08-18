@@ -46,6 +46,7 @@ const wishSlice = createSlice({
 })
 
 
+
 export const { addItem , removeItem} = wishSlice.actions
 
 

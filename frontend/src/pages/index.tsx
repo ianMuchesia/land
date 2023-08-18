@@ -5,18 +5,29 @@ import { Features, Hero, Properties } from '@/components/Home_Components'
 import Head from 'next/head'
 import axios from 'axios'
 import { typeProperties } from '@/@types/@types'
-import { useAppDispatch } from '@/redux/Hooks'
+import { useAppDispatch, useAppSelector } from '@/redux/Hooks'
 import { useEffect } from 'react'
 import { checkAuthentication } from '@/redux/services/authCheck'
+import Notification from '@/components/Notification'
+import { ToastContainer } from 'react-toastify'
 interface Props {
   properties: typeProperties[];
 }
 
 export default function Home({ properties }: Props) {
+
+  let isFirstRender = true
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(checkAuthentication());
+    if(isFirstRender){
+      dispatch(checkAuthentication());
+      isFirstRender = false
+    }
+
+ 
+   
   }, []);
+
 
   return (
     <>
@@ -29,6 +40,7 @@ export default function Home({ properties }: Props) {
     <main
       
     >
+      
       <Hero/>
     <Properties properties={properties}/>
       <Features/>

@@ -4,10 +4,12 @@ import authSlice from "./Features/authSlice";
 import { api } from "./services/Api";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import wishlistSlice from "./Features/wishlistSlice";
+import uiSlice from "./Features/uiSlice";
 
 
 export const store = configureStore({
     reducer:{
+        ui:uiSlice,
         load: loadSlice,
         auth: authSlice,
         wish:wishlistSlice,
