@@ -1,1 +1,1 @@
-export const baseURL= "http://localhost:4000/api/v1"
+export const baseURL= `${import.meta.env.VITE_URL}/api/v1`
