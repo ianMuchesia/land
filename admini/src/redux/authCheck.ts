@@ -37,6 +37,7 @@ export const checkAuthentication=(navigate:NavigateFunction)=>{
 
         } catch (error) {
             console.log(error)
+            navigate("/login")
             dispatch(setisNotAuthenticated())
         }
     }

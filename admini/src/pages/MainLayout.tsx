@@ -14,10 +14,14 @@ const MainLayout: React.FC<MainLayoutProps> = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
  
+  
 
   useEffect(() => {
   // Use router.push here
+  
   dispatch(checkAuthentication(navigate))
+    
+ 
    } , [dispatch,navigate]);
 
   return (
