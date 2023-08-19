@@ -4,11 +4,12 @@ import { AppDispatch } from "./"
 import axios from "axios"
 import { baseURL } from "../baseURL"
 import { setIsAuthenticated, setisNotAuthenticated } from "./authSlice"
+import { NavigateFunction } from "react-router-dom"
 
 
 
 
-export const checkAuthentication=()=>{
+export const checkAuthentication=(navigate:NavigateFunction)=>{
   
     return async(dispatch:AppDispatch)=>{
         try {
@@ -18,7 +19,7 @@ export const checkAuthentication=()=>{
             const url = `${baseURL}${apiEndpoint}`;
             
             const { data } = await axios.get(url, { withCredentials: true });
-                    
+            
         
             if(data?.success){
                 const {name , userId , role} = data?.user
@@ -28,6 +29,9 @@ export const checkAuthentication=()=>{
                     role
                 }))
                 
+                
+            }else{
+                navigate("/login")
             }
             
 

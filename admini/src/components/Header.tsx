@@ -83,7 +83,7 @@ const Header = () => {
               <button className="absolute top-1/2 left-0 -translate-y-1/2">
                 <Icon
                   icon="iconamoon:search-thin"
-                  className="fill-body hover:fill-primary dark:fill-bodydark dark:hover:fill-primary"
+                  className="fill-body hidden hover:fill-primary dark:fill-bodydark dark:hover:fill-primary"
                   width="20"
                   height="20"
                 />
@@ -92,7 +92,7 @@ const Header = () => {
               <input
                 type="text"
                 placeholder="Type to search..."
-                className="w-full bg-transparent pr-4 pl-9 focus:outline-none"
+                className="hidden w-full bg-transparent pr-4 pl-9 focus:outline-none"
               />
             </div>
           </form>

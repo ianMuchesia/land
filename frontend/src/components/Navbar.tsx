@@ -84,6 +84,16 @@ const Navbar = () => {
                 Sign in
               </Link>
             </li>}
+            {user.isAuthenticated && <li>
+              <Link
+                href="/"
+                aria-label="home"
+                title="home"
+                className="font-medium tracking-wide text-black transition-colors duration-200 hover:text-green-400"
+              >
+                Welcome {user.user.name}
+              </Link>
+            </li>}
             {!user.isAuthenticated && <li>
               <Link
                 href="/signup"
@@ -243,6 +253,16 @@ const Navbar = () => {
                           Sign in
                         </Link>
                       </li>}
+                      {user.isAuthenticated && <li onClick={handleCloseToggle}>
+                        <Link
+                          href="/"
+                          aria-label=""
+                          title=""
+                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                        >
+                          Welcome {user.user.name}
+                        </Link>
+                      </li>}
                      {!user.isAuthenticated && <li onClick={handleCloseToggle}>
                         <Link
                           href="/signup"
@@ -253,13 +273,13 @@ const Navbar = () => {
                           Sign up
                         </Link>
                       </li>}
-                      <li>
+                     {user.isAuthenticated && <li>
                         <button 
                         onClick={()=>{setIsModalOpen(true)}}
                         className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-black transition duration-200 rounded shadow-md bg-green-400 hover:bg-green-700 focus:shadow-outline focus:outline-none">
                           Sign Out
                         </button>
-                      </li>
+                      </li>}
                     </ul>
                   </nav>
                 </div>

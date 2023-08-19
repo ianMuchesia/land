@@ -40,7 +40,8 @@ app.use(
 
 app.use(helmet());
 
- app.use(cors({ origin: [process.env.CLIENT_SIDE_URL,process.env.CLIENT_SIDE_URL_2, "http://localhost:5173", "http://localhost:3000"], credentials: true ,  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",}));
+//  app.use(cors({ origin: [process.env.CLIENT_SIDE_URL,process.env.CLIENT_SIDE_URL_2, "http://localhost:5173", "http://localhost:3000"], credentials: true ,  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",}));
+ app.use(cors({ origin: [process.env.CLIENT_SIDE_URL,process.env.CLIENT_SIDE_URL_2], credentials: true ,  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",}));
 app.use(xss());
 app.use(mongoSanitize());
 

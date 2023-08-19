@@ -24,8 +24,9 @@ const register = async(req, res)=>{
     const tokenUser = createToken(user)
 
     attachCookiesToResponse({res, user:tokenUser})
-    
-    res.status(StatusCodes.CREATED).json({user:tokenUser , success:true})
+ 
+ 
+    res.status(StatusCodes.ACCEPTED).json({user:tokenUser , success:true})
 
 
 }
