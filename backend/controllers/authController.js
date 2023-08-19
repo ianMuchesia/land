@@ -64,7 +64,10 @@ const logout = async(req, res)=>{
    
     res.cookie("token", "logout", {
         httpOnly: true,
-        expires: new Date(Date.now()), //expires immediately
+        expires: new Date(Date.now()),
+        secure: true, // Set secure to true for cross-origin requests over HTTPS
+        signed: true,
+        sameSite: 'None' //expires immediately
       });
       res.status(StatusCodes.OK).json({ success: true, msg: "user logged out!" });
 }

@@ -1,12 +1,14 @@
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { closeToggle, openToggle } from "../redux/toggleSlice";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import { Icon } from '@iconify/react';
 import { LogoutUser } from "../redux/logOutSlice";
 
 const Sidebar = () => {
   const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
 
   const toggle = useAppSelector((state) => state.toggle.toggle);
 
@@ -17,6 +19,11 @@ const Sidebar = () => {
       dispatch(openToggle());
     }
   };
+
+  const handleLogout=()=>{
+    console.log(dispatch(LogoutUser(navigate)))
+   
+  }
 
   const active = ({ isActive }: { isActive: boolean }) =>
     isActive ? "bg-graydark dark:bg-meta-4" : "";
@@ -155,7 +162,7 @@ const Sidebar = () => {
             {/* <!-- Menu Item Settings --> */}
 
             <li
-            onClick={()=>dispatch(LogoutUser())}
+            onClick={handleLogout}
                 
                 className="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4  cursor-pointer"
               >

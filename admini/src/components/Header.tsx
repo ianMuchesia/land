@@ -3,13 +3,15 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { closeToggle, openToggle } from "../redux/toggleSlice";
 import Logo from "../assets/images/logo/logo-icon.svg";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 import { LogoutUser } from "../redux/logOutSlice";
 
 const Header = () => {
   const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
 
   const toggle = useAppSelector((state) => state.toggle.toggle);
 
@@ -148,7 +150,7 @@ const Header = () => {
               </ul>
               <button
                 onClick={() => {
-                  dispatch(LogoutUser());
+                  dispatch(LogoutUser(navigate));
                 }}
                 className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
               >

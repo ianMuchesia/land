@@ -7,6 +7,8 @@ import Settings from "./scenes/settings";
 import Profile from "./scenes/profile";
 import { Login, MainLayout } from "./pages";
 import Edit from "./scenes/edit";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -14,10 +16,11 @@ function App() {
   return (
     <BrowserRouter>
       <Loader />
-
+      <ToastContainer/>
       <Routes>
         <Route path="/" element={<MainLayout children />}>
           <Route index element={<Dashboard />} />
+          
           <Route path="/properties" element={<Properties />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/customers" element={<Customers />} />
