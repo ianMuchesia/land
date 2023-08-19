@@ -1,8 +1,9 @@
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { closeToggle, openToggle } from "../redux/toggleSlice";
 import { Link, NavLink } from "react-router-dom";
-import { openModal } from "../redux/modalSlice";
+
 import { Icon } from '@iconify/react';
+import { LogoutUser } from "../redux/logOutSlice";
 
 const Sidebar = () => {
   const dispatch = useAppDispatch();
@@ -154,7 +155,7 @@ const Sidebar = () => {
             {/* <!-- Menu Item Settings --> */}
 
             <li
-            onClick={()=>dispatch(openModal())}
+            onClick={()=>dispatch(LogoutUser())}
                 
                 className="group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4  cursor-pointer"
               >

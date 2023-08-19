@@ -1,9 +1,10 @@
 import React, { ReactNode } from 'react'
-import { Header, LogoutModal, Sidebar } from '../components';
+import { Header,  Sidebar } from '../components';
 import { Outlet } from 'react-router-dom';
-
+import 'react-toastify/dist/ReactToastify.css';
 import { AuthSession } from '../lib/Authsession';
-import {  useAppSelector } from '../redux/hooks';
+import { ToastContainer } from 'react-toastify';
+
 
 interface MainLayoutProps {
     children: ReactNode;
@@ -12,8 +13,7 @@ interface MainLayoutProps {
 
     const user = AuthSession()
 
-    const modal = useAppSelector(state=> state.modal.isOpen)
-
+   
   
     if(!user)return null
     
@@ -23,7 +23,7 @@ interface MainLayoutProps {
     <Sidebar />
     <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
       <Header />
-      {modal && <LogoutModal/>}
+    <ToastContainer/>
       <main>
         <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
         <Outlet/>
