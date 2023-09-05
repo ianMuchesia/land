@@ -231,7 +231,6 @@ const updateImage = async (req, res) => {
       public_id: `${property.title}-mainImage`,
     });
 
-    console.log("am here 2")
     property.mainImage.url = responseMainImage.secure_url;
     property.mainImage.public_id = responseMainImage.public_id;
 
