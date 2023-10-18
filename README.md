@@ -1,72 +1,7 @@
-# Land Selling Project Documentation
-
-This project is a land selling platform divided into three components: Admin, Backend, and Frontend. It allows administrators to manage land listings, while providing a user-friendly frontend for the general public to browse and purchase land.
-
-## Admin (Admin Dashboard)
-
-The Admin component is an admin dashboard that allows administrators to:
-
-- Add, edit, and delete land listings.
-- Manage user accounts.
-- View sales and revenue reports.
-
-### Technologies Used
-
-- Vite
-- React
-- TypeScript
-- Tailwind CSS
-
-### Getting Started
-
-To run the Admin Dashboard, follow these steps:
-
-1. Navigate to the `admin` directory:
-cd admin
-
-
-2. Install dependencies:
-npm install
 
 
 
-3. Start the development server:
-npm run dev
-
-
-
-
-The Admin Dashboard will be accessible at `http://localhost:3000`.
-
-## Backend (Server-Side)
-
-The Backend component provides server-side functionality for the project, including:
-
-- Handling user authentication and authorization.
-- Managing land data in a MongoDB database.
-- Handling API requests from the frontend.
-
-### Technologies Used
-
-- Node.js
-- Express.js
-- MongoDB
-- JavaScript
-
-### Getting Started
-
-To run the Backend server, follow these steps:
-
-1. Navigate to the `backend` directory:
-cd backend
-
-
-2. Install dependencies:
-
-Creating comprehensive documentation for your project's README.md is a great practice to help users, collaborators, and yourself understand how the project is structured and how to get started. Below is an example of how you can structure your documentation for your project with separate sections for each component (admin, backend, frontend):
-
-
-# Land Selling Project Documentation
+# Land Selling Doc
 
 This project is a land selling platform divided into three components: Admin, Backend, and Frontend. It allows administrators to manage land listings, while providing a user-friendly frontend for the general public to browse and purchase land.
 
