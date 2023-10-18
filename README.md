@@ -125,9 +125,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 We would like to acknowledge the contributions and support from the open-source community.
 
----
 
-Happy land selling!
 
 
 
