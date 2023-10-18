@@ -84,13 +84,13 @@ const getAllProperties = async (req, res) => {
   }
 
   //pagination
-  if (page) {
-    const pagination = Number(page);
-    const limit = Number(req.query.limit) || 8;
-    const skip = (pagination - 1) * limit;
+  // if (page) {
+  //   const pagination = Number(page);
+  //   const limit = Number(req.query.limit) || 8;
+  //   const skip = (pagination - 1) * limit;
 
-    result = result.skip(skip).limit(limit);
-  }
+  //   result = result.skip(skip).limit(limit);
+  // }
 
   const properties = await result;
 

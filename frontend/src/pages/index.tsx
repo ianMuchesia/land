@@ -1,32 +1,18 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+
 
 import { Features, Hero, Properties } from '@/components/Home_Components'
 import Head from 'next/head'
 import axios from 'axios'
 import { typeProperties } from '@/@types/@types'
-import { useAppDispatch, useAppSelector } from '@/redux/Hooks'
-import { useEffect } from 'react'
-import { checkAuthentication } from '@/redux/services/authCheck'
-import Notification from '@/components/Notification'
-import { ToastContainer } from 'react-toastify'
+
+
 interface Props {
   properties: typeProperties[];
 }
 
 export default function Home({ properties }: Props) {
 
-  let isFirstRender = true
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    if(isFirstRender){
-      dispatch(checkAuthentication());
-      isFirstRender = false
-    }
 
- 
-   
-  }, []);
 
 
   return (

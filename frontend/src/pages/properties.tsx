@@ -18,27 +18,10 @@ interface queryData {
 const initialState : PaginationState ={
   currentPage: 1,
 }
-const paginationReducer = (state:PaginationState, action:PaginationAction):PaginationState=>{
-  switch(action.type){
-    case "SET_CURRENT_PAGE":
-      return {...state, currentPage:action.payload};
-    case "NEXT_PAGE":
-      return {
-        ...state,
-        currentPage:state.currentPage + 1,
-      }
-    case "PREVIOUS_PAGE":
-      return {
-        ...state,
-        currentPage: state.currentPage - 1,
-      }
-    default:
-      return state;
-  }
-};
+
 
 const properties = () => {
-  const [state, dispatch] = useReducer(paginationReducer, initialState);
+
 
 
   const [filter, setFilter] = useState({
@@ -56,33 +39,16 @@ const properties = () => {
     sort: filter.sort,
     numericFilters: `area<=${filter.size_max},price>=${filter.price_min}`,
     search: filter.search,
-   page:state.currentPage,
+
   });
 
 
    //pagination logic
-   const { currentPage } = state;
+   
   
 
-
-   let totalPages = Math.ceil(data?.totalProperties / 8);
    
-   
-    
-  const handlePreviousPageClick = () => {
-    if (currentPage === 1) return;
-    dispatch({ type: "PREVIOUS_PAGE" });
-  };
 
-  const handleNextPageClick = () => {
-    if (currentPage === totalPages) return;
-    dispatch({ type: "NEXT_PAGE" });
-  };
-
-  const handleCurrentPageClick = (page: number) => {
-    dispatch({ type: "SET_CURRENT_PAGE", payload: page });
-  };
-  
 
   
   return (
@@ -107,13 +73,7 @@ const properties = () => {
               <Property property={property} key={property._id} />
             ))}
      
-     {data?.totalProperties>0 && <Pagination
-            handleNextPageClick={handleNextPageClick}
-            handleCurrentPageClick={handleCurrentPageClick}
-            handlePreviousPageClick={handlePreviousPageClick}
-            totalPages={totalPages}
-            currentPage={currentPage}
-          />}
+ 
 
    </>
   )

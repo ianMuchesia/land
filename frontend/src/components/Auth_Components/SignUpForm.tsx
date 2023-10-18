@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Oauth from "./Oauth";
 
 const SignUpForm = () => {
   const router = useRouter();
@@ -300,7 +301,9 @@ const SignUpForm = () => {
                 </p>
               </div>
             </form>
+            <Oauth/>
           </div>
+       
         </div>
       </div>
     </section>

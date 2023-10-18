@@ -1,8 +1,9 @@
 import React from 'react'
-import HomeProperty from './HomeProperty'
+
 import axios from 'axios';
 import { typeProperties } from '@/@types/@types'
 import Link from 'next/link';
+import Homeproperty from './Homeproperty';
 interface Props {
   properties: typeProperties[];
 }
@@ -31,7 +32,7 @@ const Properties = ({properties}:Props) => {
     <div className="flex flex-wrap items-center justify-center gap-4">
     {properties &&
             properties?.map((property) => (
-              <HomeProperty key={property?._id} property={property} />
+              <Homeproperty key={property?._id} property={property} />
             ))}
     </div>
    <div className="flex items-center justify-center my-10">
