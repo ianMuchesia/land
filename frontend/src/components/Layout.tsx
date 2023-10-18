@@ -15,7 +15,7 @@ interface LayoutProps {
     return (
       <div className="">
         <Head>
-          <title>Example Store</title>
+          <title>Land listing</title>
         </Head>
         <header>
           <Navbar />

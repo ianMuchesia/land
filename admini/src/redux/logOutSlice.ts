@@ -19,7 +19,7 @@ export const LogoutUser = (navigate:NavigateFunction) => {
          
                if(!data.success){
                 toast.error("something wrong happened")
-                return false
+                return
                }
                setTimeout(() => {
                  toast.success("Logout successful!");
@@ -32,7 +32,7 @@ export const LogoutUser = (navigate:NavigateFunction) => {
              } catch (error: any) {
                if (error.response?.data?.msg) {
                  toast.error(error.response.data.msg);
-                 return false;
+                 return;
                }
                toast.error("Something wrong happened try again later");
              }

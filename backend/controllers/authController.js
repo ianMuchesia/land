@@ -119,11 +119,53 @@ const showAdmin = async(req, res)=>{
 }
 
 
+const google = async(req, res)=>{
+
+    const user = await User.findOne({
+        email:req.body.email
+    })
+
+    if(user){
+        const tokenUser = createToken(user)
+
+        attachCookiesToResponse({res, user:tokenUser})
+     
+     
+        res.status(StatusCodes.ACCEPTED).json({user:tokenUser , success:true})
+    }else{
+
+        const generatedPassword =
+        Math.random().toString(36).slice(-8) +
+        Math.random().toString(36).slice(-8);
+      //const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
+      console.log(req.body)
+      const newUser = new User({
+        name:
+          req.body.name.split(' ').join('').toLowerCase() +
+          Math.random().toString(36).slice(-4),
+        email: req.body.email,
+        password: generatedPassword,
+      
+      });
+      await newUser.save();
+     
+      const tokenUser = createToken(user)
+
+      attachCookiesToResponse({res, user:tokenUser})
+   
+   
+      res.status(StatusCodes.ACCEPTED).json({user:tokenUser , success:true})
+    
+
+    }
+}
+
 module.exports =  {
     register,
     login,
     logout,
     showUser,
     loginAdmin,
-    showAdmin
+    showAdmin,
+    google
 }

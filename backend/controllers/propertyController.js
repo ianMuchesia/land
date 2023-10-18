@@ -84,13 +84,13 @@ const getAllProperties = async (req, res) => {
   }
 
   //pagination
-  if (page) {
-    const pagination = Number(page);
-    const limit = Number(req.query.limit) || 8;
-    const skip = (pagination - 1) * limit;
+  // if (page) {
+  //   const pagination = Number(page);
+  //   const limit = Number(req.query.limit) || 8;
+  //   const skip = (pagination - 1) * limit;
 
-    result = result.skip(skip).limit(limit);
-  }
+  //   result = result.skip(skip).limit(limit);
+  // }
 
   const properties = await result;
 
@@ -231,7 +231,6 @@ const updateImage = async (req, res) => {
       public_id: `${property.title}-mainImage`,
     });
 
-    console.log("am here 2")
     property.mainImage.url = responseMainImage.secure_url;
     property.mainImage.public_id = responseMainImage.public_id;
 

@@ -5,6 +5,7 @@ import { Phone, SMS, Whatsapp } from "../Modals";
 import { useAppDispatch, useAppSelector } from "@/redux/Hooks";
 import { addItem } from "@/redux/Features/wishlistSlice";
 import { removeWishlistData, sendWishlistData } from "@/redux/services/wishCreator";
+import Link from "next/link";
 interface Props {
   property: typeProperties;
 }
@@ -60,7 +61,7 @@ const Property = ({ property }: Props) => {
                 </span>
               </p>
             </div>
-            <div className="" onClick={handleAddToWishList}>
+            <div className="cursor-pointer" onClick={handleAddToWishList}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 text-green-400"
@@ -74,9 +75,9 @@ const Property = ({ property }: Props) => {
                 />
               </svg>
             </div>
-            <div className="bg-gray-200 px-3 py-1 rounded-full text-xs font-medium text-gray-800 hidden md:block">
-              Superhost
-            </div>
+            <Link href={`/wishlist/${property._id}`} className="bg-gray-200 px-3 py-1 rounded-full text-xs font-medium text-gray-800 hidden md:block">
+              View Details
+            </Link>
           </div>
           <h3 className="font-black text-gray-800 md:text-3xl text-xl">
             {property.title}
@@ -127,6 +128,9 @@ const Property = ({ property }: Props) => {
               />
             </div>
           </div>
+          <Link href={`/wishlist/${property._id}`} className="bg-gray-200 px-3 py-2 rounded-full text-xs text-center font-medium text-gray-800  md:hidden">
+              View details
+            </Link>
         </div>
       </div>
       <div className="">
