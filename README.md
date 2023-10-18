@@ -65,8 +65,7 @@ cd backend
 
 Creating comprehensive documentation for your project's README.md is a great practice to help users, collaborators, and yourself understand how the project is structured and how to get started. Below is an example of how you can structure your documentation for your project with separate sections for each component (admin, backend, frontend):
 
-markdown
-Copy code
+
 # Land Selling Project Documentation
 
 This project is a land selling platform divided into three components: Admin, Backend, and Frontend. It allows administrators to manage land listings, while providing a user-friendly frontend for the general public to browse and purchase land.
@@ -93,20 +92,16 @@ To run the Admin Dashboard, follow these steps:
 1. Navigate to the `admin` directory:
 cd admin
 
-markdown
-Copy code
 
 2. Install dependencies:
 npm install
 
-markdown
-Copy code
+
 
 3. Start the development server:
 npm run dev
 
-markdown
-Copy code
+
 
 The Admin Dashboard will be accessible at `http://localhost:3000`.
 
@@ -132,8 +127,7 @@ To run the Backend server, follow these steps:
 1. Navigate to the `backend` directory:
 cd backend
 
-markdown
-Copy code
+
 
 2. Install dependencies:
 npm install
