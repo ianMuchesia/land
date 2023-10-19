@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import { typeProperties } from "@/@types/@types";
 import { useAppDispatch, useAppSelector } from "@/redux/Hooks";
-import Add from "./Add";
+import Add from "../../../lib/Add";
 import { Phone, SMS, Whatsapp } from "@/components/Modals";
 import ModalComponent from "./ModalComponent";
 

@@ -46,3 +46,20 @@ export interface typeLocation{
 
   error:any;
 }
+
+
+export type WishlistProperty = {
+property:typeProperties;
+}
+  
+
+export type WishlistResponse = {
+  success: boolean;
+  wishlist: {
+    createdAt: string;
+    properties: WishlistProperty[];
+    updatedAt: string;
+    user: string;
+    _id: string;
+  };
+};

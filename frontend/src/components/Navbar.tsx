@@ -8,6 +8,8 @@ const Navbar = () => {
 
   const wish = useAppSelector(state=>state.wish.total)
 
+  
+
   const user = useAppSelector(state=>state.auth)
   
   const [isMenuOpen, setIsMenuOpen] = useState(false);
