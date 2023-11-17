@@ -2,6 +2,7 @@ import Head from 'next/head';
 import React, { ReactNode } from 'react'
 import Navbar from './Navbar';
 import Footer from './Footer';
+import ToastContainerWrapper from '@/lib/ToastContainer';
 
 
 
@@ -26,6 +27,7 @@ interface LayoutProps {
         <footer>
           <Footer />
         </footer>
+        <ToastContainerWrapper/>
       </div>
     )
   }

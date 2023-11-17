@@ -1,13 +1,16 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Oauth from "./Oauth";
+import { setIsAuthenticated } from "@/redux/Features/authSlice";
+import { useAppDispatch } from "@/redux/Hooks";
 
 const SignUpForm = () => {
   const router = useRouter();
 
+  const dispatch = useAppDispatch();
   const [signUpForm, setSignUpForm] = useState({
     firstName: "",
     secondName: "",
@@ -67,6 +70,12 @@ const SignUpForm = () => {
         toast.warning(data.msg);
         return;
       }
+      const {name , userId , role} = data?.user
+      dispatch(setIsAuthenticated({
+          name,
+          userId,
+          role
+      }))
       toast.success("Sign Up successful!");
       setTimeout(() => {
         const returnUrl = localStorage.getItem("returnUrl");
@@ -98,7 +107,7 @@ const SignUpForm = () => {
 
   return (
     <section className="bg-white">
-      <ToastContainer />
+     
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
         <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
           <img

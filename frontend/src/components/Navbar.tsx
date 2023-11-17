@@ -8,6 +8,8 @@ const Navbar = () => {
 
   const wish = useAppSelector(state=>state.wish.total)
 
+  
+
   const user = useAppSelector(state=>state.auth)
   
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -114,7 +116,7 @@ const Navbar = () => {
                 Sign Out
               </button>
             </li>}
-          {wish>0 &&  <li className="relative flex">
+          {user.isAuthenticated && wish >0 &&  <li className="relative flex">
               <Link
                 href="/wishlist"
                 className=""
@@ -230,7 +232,7 @@ const Navbar = () => {
                           About us
                         </Link>
                       </li>
-            {   wish>0 &&       <li onClick={handleCloseToggle} className=" flex items-center gap-2">
+            {user.isAuthenticated &&   wish>0 &&       <li onClick={handleCloseToggle} className=" flex items-center gap-2">
                         <Link
                           href="/wishlist"
                           aria-label="About us"

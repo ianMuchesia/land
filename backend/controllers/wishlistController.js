@@ -15,6 +15,11 @@ if(!req.user.userId || !property){
 
     if(wishlistExist){
         
+        const propertyExist = wishlistExist.properties.find(item=>item.property.toString() === property)
+
+        if(propertyExist){
+            throw new BadRequestError("Property already exist in the wishlist")
+        }
         wishlistExist.properties.push({property})
         await wishlistExist.save()
     }else{
@@ -25,7 +30,7 @@ if(!req.user.userId || !property){
        
     }
 
-    res.status(StatusCodes.OK).json({success:true})
+    res.status(StatusCodes.OK).json({success:true,property})
    
 }
 
@@ -39,7 +44,7 @@ const wishlist = await Wishlist.findOne({ user: req.user.userId })
       populate: {
         path: "property",
        
-        select: "title price  area mainImage ", // Specify the fields you want to populate
+        select: "title price  area mainImage location", // Specify the fields you want to populate
       },
     })
     .exec();

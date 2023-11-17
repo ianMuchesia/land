@@ -1,53 +1,108 @@
-import { typeProperties } from "@/@types/@types"
-import { createSlice } from "@reduxjs/toolkit"
+import {
+  WishlistProperty,
+  WishlistResponse,
+  typeProperties,
+} from "@/@types/@types";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { toast } from "react-toastify";
 
+const initialWishState = {
+  itemsList: [] as WishlistProperty[],
+  total: 0,
+  itemExists: false,
+};
 
+//async thunk functions
 
+export const fetchWishlist = createAsyncThunk<WishlistResponse>(
+  "wishlists/fetchWishlist",
+  async () => {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/wishlist`,
+      { withCredentials: true }
+    );
 
-type wishProperty={
-    itemsList:typeProperties[],
-    total:number,
-    
-}
-const initialWishState:wishProperty = {
-    itemsList: [],
-    total:0,
-    
-}
+    return data;
+  }
+);
 
+export const addToWishlist = createAsyncThunk(
+  "wishlists/addToWishlist",
+  async (property: typeProperties) => {
+    const { data } = await axios.post(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/wishlist`,
+      { property: property._id },
+      { withCredentials: true }
+    );
+
+    return data;
+  }
+);
+
+export const removeFromWishlist = createAsyncThunk(
+  "wishlists/removeFromWishlist",
+  async (propertyId: string) => {
+    const { data } = await axios.delete(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/wishlist/${propertyId}`,
+      { withCredentials: true }
+    );
+
+    return { propertyId, success: data.success };
+  }
+);
 
 const wishSlice = createSlice({
-    name:"wish",
-    initialState:initialWishState,
-    reducers:{
-        addItem(state, action){
-            const newItem:typeProperties = action.payload
+  name: "wish",
+  initialState: initialWishState,
+  reducers: {
+    wishExists: (state, action) => {
+      const item = action.payload;
+      const itemExists = state.itemsList.some(
+        (i) => i.property._id === item.property._id
+      );
 
-            const itemExists = state.itemsList.find(item=>item._id === newItem._id)
-
-
-            if(itemExists){
-                return;
-            }
-            state.itemsList.push(newItem)
-            state.total = state.itemsList.length
-        },
-        removeItem(state,action){
-            const selectedItem:typeProperties = action.payload
-
-            const newList = state.itemsList.filter(item=>item._id === selectedItem._id)
-
-            state.itemsList = newList
-            state.total = state.itemsList.length
+      if (itemExists) {
+        state.itemExists = true;
+      } else {
+        state.itemExists = false;
+      }
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchWishlist.fulfilled, (state, action) => {
+      state.itemsList = action.payload.wishlist.properties;
+      state.total = state.itemsList.length;
+    });
+    builder.addCase(addToWishlist.fulfilled, (state, action) => {
+      if (action.payload.success) {
+        // Prevent duplicates by checking if the item already exists
+        if (
+          !state.itemsList.some(
+            (item) => item.property._id === action.payload.property
+          )
+        ) {
+          state.itemsList.push(action.payload);
+          state.total = state.itemsList.length; // Update the total items count
+          toast.success("Added to wishlist");
         }
-    }
-    
+      }
+    });
 
-})
+    builder.addCase(removeFromWishlist.fulfilled, (state, action) => {
+      if (action.payload.success) {
+        state.itemsList = state.itemsList.filter(
+          (item) => item.property._id !== action.payload.propertyId
+        );
+        state.total = state.itemsList.length; // Update the total items count
+        toast.success("Removed from wishlist");
+      } else {
+        toast.error("Failed to remove from wishlist");
+      }
+    });
+  },
+});
 
+export const {wishExists} = wishSlice.actions;
 
-
-export const { addItem , removeItem} = wishSlice.actions
-
-
-export default wishSlice.reducer
+export default wishSlice.reducer;

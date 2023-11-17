@@ -3,9 +3,8 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import React, { useState } from "react";
 import { Phone, SMS, Whatsapp } from "../Modals";
 import { useAppDispatch, useAppSelector } from "@/redux/Hooks";
-import { addItem } from "@/redux/Features/wishlistSlice";
-import { removeWishlistData, sendWishlistData } from "@/redux/services/wishCreator";
 import Link from "next/link";
+import Add from "@/lib/Add";
 interface Props {
   property: typeProperties;
 }
@@ -21,12 +20,7 @@ const Property = ({ property }: Props) => {
     isWhatsapp: false,
   });
 
-  const handleAddToWishList = async () => {
-    if (!user) {
-      return;
-    }
-    await dispatch(sendWishlistData(property));
-  };
+
 
   return (
     <div className="flex flex-col justify-center my-10">
@@ -61,20 +55,7 @@ const Property = ({ property }: Props) => {
                 </span>
               </p>
             </div>
-            <div className="cursor-pointer" onClick={handleAddToWishList}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-green-400"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </div>
+         <Add property={property}/>
             <Link href={`/wishlist/${property._id}`} className="bg-gray-200 px-3 py-1 rounded-full text-xs font-medium text-gray-800 hidden md:block">
               View Details
             </Link>
