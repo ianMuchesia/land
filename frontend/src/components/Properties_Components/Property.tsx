@@ -3,7 +3,6 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import React, { useState } from "react";
 import { Phone, SMS, Whatsapp } from "../Modals";
 import { useAppDispatch, useAppSelector } from "@/redux/Hooks";
-import { removeWishlistData, sendWishlistData } from "@/redux/services/wishCreator";
 import Link from "next/link";
 import Add from "@/lib/Add";
 interface Props {
