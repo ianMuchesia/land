@@ -4,10 +4,28 @@ import axios from 'axios';
 import { typeProperties } from '@/@types/@types'
 import Link from 'next/link';
 import Homeproperty from './Homeproperty';
-interface Props {
-  properties: typeProperties[];
+import { useGetAllPropertiesQuery } from '@/redux/services/Api';
+
+interface queryData {
+  data: {
+    nbHits: number;
+    properties: typeProperties[];
+    totalProperties: number;
+  };
+  isLoading: boolean;
+  isSuccess:boolean;
 }
-const Properties = ({properties}:Props) => {
+const Properties = () => {
+
+  const { data, isLoading, isSuccess } = useGetAllPropertiesQuery<queryData>({
+    location: "",
+    sort: "",
+    numericFilters: ``,
+    search: "",
+
+  });
+
+ 
  
   return (
     <div className="px-4 py-4 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
@@ -30,8 +48,8 @@ const Properties = ({properties}:Props) => {
     </div> 
     
     <div className="flex flex-wrap items-center justify-center gap-4">
-    {properties &&
-            properties?.map((property) => (
+    {data?.properties &&
+           data?.properties?.slice(0,8).map((property) => (
               <Homeproperty key={property?._id} property={property} />
             ))}
     </div>

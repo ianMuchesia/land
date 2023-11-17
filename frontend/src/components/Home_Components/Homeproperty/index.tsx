@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/Hooks";
 import Add from "../../../lib/Add";
 import { Phone, SMS, Whatsapp } from "@/components/Modals";
 import ModalComponent from "./ModalComponent";
+import Image from "next/image";
 
 
 
@@ -27,8 +28,10 @@ const Homeproperty = ({ property }: Props) => {
     >
 
 
-      <img
-        alt="Home"
+      <Image
+      height={200}
+    width={200}
+      alt="Home"
         src={property?.mainImage.url}
         className="h-56 w-full rounded-md object-cover"
       />

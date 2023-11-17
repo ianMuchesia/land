@@ -17,6 +17,25 @@ const Wishlist = () => {
 
   const wishlist = useAppSelector(state=>state.wish.itemsList)
 
+  //const { user, isLoading } = useSelector((state) => state.auth); // Replace with the correct slice path
+  // const router = useRouter();
+
+  // // This useEffect is used to store the original URL when the user is unauthenticated
+  // useEffect(() => {
+  //   if (!user) {
+  //     const handleRouteChange = (url: string) => {
+  //       // Store the original URL before redirecting to the login page
+  //       localStorage.setItem("returnUrl", url);
+  //     };
+
+  //     router.events.on("routeChangeStart", handleRouteChange);
+
+  //     return () => {
+  //       // Clean up the event listener
+  //       router.events.off("routeChangeStart", handleRouteChange);
+  //     };
+  //   }
+  // }, [router, user]);
 
 
 

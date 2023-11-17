@@ -4,8 +4,8 @@ import { useAppDispatch } from '@/redux/Hooks';
 import { useRouter } from 'next/router';
 import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
 import { app } from '@/lib/firebase';
-import axios from 'axios';
 import { toast } from 'react-toastify';
+import { setIsAuthenticated } from '@/redux/Features/authSlice';
 
 const Oauth = () => {
 
@@ -48,11 +48,19 @@ const Oauth = () => {
   
         const data = await response.json();
         // enter you logic when the fetch is successful
+
+       
   
-        if(data.msg){
+        if(data?.msg){
           toast.warning(data.msg);
           return;
         }
+        const {name , userId , role} = data?.user
+        dispatch(setIsAuthenticated({
+            name,
+            userId,
+            role
+        }))
           toast.success("Login successful!");
           setTimeout(() => {
   
@@ -81,11 +89,12 @@ const Oauth = () => {
     
     }
   return (
-    <div className="">
+    <div className="flex items-center justify-center gap-2 flex-col">
+      <h1 className="text-2xl uppercase">OR</h1>
           <button
       onClick={handleGoogleClick}
       type='button'
-      className='flex justify-between p-3 rounded-lg uppercase hover:opacity-95'
+      className='flex justify-evenly items-center gap-4 bg-gray-200 p-3 rounded-lg uppercase hover:opacity-95 w-full'
     >
 
 <Icon icon="flat-color-icons:google" />
