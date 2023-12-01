@@ -5,6 +5,7 @@ import { Phone, SMS, Whatsapp } from "../Modals";
 import { useAppDispatch, useAppSelector } from "@/redux/Hooks";
 import Link from "next/link";
 import Add from "@/lib/Add";
+import Image from "next/image";
 interface Props {
   property: typeProperties;
 }
@@ -26,18 +27,24 @@ const Property = ({ property }: Props) => {
     <div className="flex flex-col justify-center my-10">
       <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-xs md:max-w-3xl mx-auto border border-white bg-white">
         <div className="w-full md:w-1/3 bg-white grid place-items-center">
-          <img
+          <Image
+             height={200}
+             width={200}
             src={property.mainImage.url}
             alt={property.title}
-            className="rounded-xl"
+            className="rounded-xl w-full"
+            priority={false}
           />
           <div className="mt-4 w-full  bg-white grid place-items-center gap-2 grid-cols-2">
             {property.images.slice(0, 2).map((image) => (
-              <img
+              <Image
+              height={200}
+              width={200}
                 src={image.url}
                 alt={property.title}
                 className="rounded"
                 key={image._id}
+                priority={false}
               />
             ))}
           </div>

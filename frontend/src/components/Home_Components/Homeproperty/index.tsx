@@ -34,6 +34,7 @@ const Homeproperty = ({ property }: Props) => {
       alt="Home"
         src={property?.mainImage.url}
         className="h-56 w-full rounded-md object-cover"
+        priority={false}
       />
 
       <div className="mt-2">

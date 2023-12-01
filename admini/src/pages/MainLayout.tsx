@@ -1,28 +1,19 @@
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode } from "react";
 import { Header, Sidebar } from "../components";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 
-import { useAppDispatch } from "../redux/hooks";
 
-import { checkAuthentication } from "../redux/authCheck";
 
 interface MainLayoutProps {
   children: ReactNode;
 }
 const MainLayout: React.FC<MainLayoutProps> = () => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+ 
  
   
 
-  useEffect(() => {
-  // Use router.push here
   
-  dispatch(checkAuthentication(navigate))
-    
- 
-   } , [dispatch,navigate]);
 
   return (
     <div className="flex h-screen overflow-hidden">

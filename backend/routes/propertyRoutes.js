@@ -7,12 +7,14 @@ const {
   getAllProperties,
   updateProperty,
   updateImage,
+  getFeaturedProperties,
 } = require("../controllers/propertyController");
 const { authorizePermission, authenticateUser } = require("../middleware/authentication");
 
 const router = express.Router();
 
 router.get("/", getAllProperties);
+router.get("/featured", getFeaturedProperties)
 router.get("/:id", getSingleProperty);
 router.post("/", createProperty);
 router.patch("/:id",updateProperty)

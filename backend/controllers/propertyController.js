@@ -101,6 +101,17 @@ const getAllProperties = async (req, res) => {
   });
 };
 
+
+const getFeaturedProperties = async (req, res) => {
+  // Use the `limit` method to retrieve only the first 8 properties
+  const properties = await Property.find().limit(8).populate({
+    path: "location",
+    select: "name",
+  });
+
+  res.status(StatusCodes.OK).json({ properties, nbHits: properties.length });
+}
+
 const createProperty = async (req, res) => {
   const { title, description, price, location, area, images, mainImage } =
     req.body;
@@ -303,4 +314,5 @@ module.exports = {
   createProperty,
   updateProperty,
   updateImage,
+  getFeaturedProperties
 };

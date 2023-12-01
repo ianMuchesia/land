@@ -4,12 +4,11 @@ import { AppDispatch } from "./"
 import axios from "axios"
 import { baseURL } from "../baseURL"
 import { setIsAuthenticated, setisNotAuthenticated } from "./authSlice"
-import { NavigateFunction } from "react-router-dom"
 
 
 
 
-export const checkAuthentication=(navigate:NavigateFunction)=>{
+export const checkAuthentication=()=>{
   
     return async(dispatch:AppDispatch)=>{
         try {
@@ -21,6 +20,7 @@ export const checkAuthentication=(navigate:NavigateFunction)=>{
             const { data } = await axios.get(url, { withCredentials: true });
             
         
+        
             if(data?.success){
                 const {name , userId , role} = data?.user
                 dispatch(setIsAuthenticated({
@@ -30,14 +30,11 @@ export const checkAuthentication=(navigate:NavigateFunction)=>{
                 }))
                 
                 
-            }else{
-                navigate("/login")
             }
-            
 
         } catch (error) {
-            console.log(error)
-            navigate("/login")
+            
+           
             dispatch(setisNotAuthenticated())
         }
     }

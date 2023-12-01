@@ -44,7 +44,7 @@ app.use(helmet());
  app.use(cors({ origin: [process.env.CLIENT_SIDE_URL,process.env.CLIENT_SIDE_URL_2], credentials: true ,  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",}));
 app.use(xss());
 app.use(mongoSanitize());
-
+app.use(morgan('short'));
 app.use(cookieParser(process.env.JWT_SECRET));
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));

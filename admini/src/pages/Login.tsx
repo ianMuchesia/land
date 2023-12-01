@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseURL } from "../baseURL";
 import { ToastContainer, toast } from "react-toastify";
+import { useAppDispatch } from "../redux/hooks";
+import { setIsAuthenticated } from "../redux/authSlice";
 
 
 
@@ -26,12 +28,13 @@ const Login = () => {
     
   } = useForm<Inputs>({
     defaultValues: {
-      email: "",
-      password: "",
+      email: "trial@emeil.com",
+      password: "password",
    
     },
   });
 
+  const dispatch  = useAppDispatch()
 
   const navigate = useNavigate()
 
@@ -58,17 +61,19 @@ const Login = () => {
         toast.error(data.msg);
       }
 
-      if (!data.success) {
-        toast.error(data.msg);
-    } 
-      
+     
+        const {name , userId , role} = data?.user
+        dispatch(setIsAuthenticated({
+            name,
+            userId,
+            role
+        }))
+        navigate("/")
+        
+    
   
       reset();
-      setTimeout(() => {
-        navigate("/")
-      
-       
-      }, 1000);
+   
     } catch (error: any) {
       console.log(error);
        
