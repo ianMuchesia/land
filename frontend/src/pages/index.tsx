@@ -1,13 +1,17 @@
 
 
+import { typeProperties } from '@/@types/@types'
 import { Features, Hero, Properties } from '@/components/Home_Components'
+import axios from 'axios'
 import Head from 'next/head'
 
+interface Props {
+  properties: typeProperties[];
+}
 
+export default function Home({properties}:Props) {
 
-export default function Home() {
-
-
+  
 
 
   return (
@@ -23,12 +27,24 @@ export default function Home() {
     >
       
       <Hero/>
-    <Properties/>
+    <Properties properties={properties}/>
       <Features/>
     
     </main>
     </>
   )
+}
+
+
+
+export const getServerSideProps = async () => {
+  const { data } = await axios.get(`${process.env.BACKEND_URL}/api/v1/properties/featured`)
+
+  return {
+    props: {
+      properties: data.properties
+    }
+  }
 }
 
 

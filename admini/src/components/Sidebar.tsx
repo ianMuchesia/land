@@ -36,7 +36,7 @@ const Sidebar = () => {
       {/* Sidebar Header */}
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
         <Link to="/" className="text-4xl text-white">
-          Land Listing
+          ADMIN
          {/* // <img src={Logo} alt="Logo" /> */}
         </Link>
 

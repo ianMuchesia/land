@@ -2,8 +2,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { userAuth } from "../@types/@types";
 
-const initialAuthState = {
-  isAuthenticated: false,
+
+type authState={
+  
+    isAuthenticated: boolean|null;
+    user: {
+        name: string;
+        userId: string;
+        role: string;
+    };
+
+}
+
+const initialAuthState:authState = {
+  isAuthenticated: null,
   user: {
     name: "",
     userId: "",
@@ -19,8 +31,9 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
       state.user = action.payload;
     },
-    setisNotAuthenticated() {
-      return initialAuthState;
+    setisNotAuthenticated(state) {
+      state.isAuthenticated = false;
+      
     },
   },
 });
