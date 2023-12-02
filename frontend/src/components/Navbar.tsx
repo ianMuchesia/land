@@ -211,17 +211,7 @@ const Navbar = () => {
                           Properties
                         </Link>
                       </li>
-                      <li onClick={handleCloseToggle}>
-                        <a
-                          href="#features"
-                          aria-label="Our product"
-                          title="Our product"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >
-                          Features
-                        </a>
-                      </li>
-                    
+                      
                       <li onClick={handleCloseToggle}>
                         <Link
                           href="/about"

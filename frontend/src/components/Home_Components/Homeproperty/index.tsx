@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+// React
+import React from "react";
+
+// Iconify
 import { Icon } from "@iconify/react";
+
+// Types
 import { typeProperties } from "@/@types/@types";
-import { useAppDispatch, useAppSelector } from "@/redux/Hooks";
+
+// Redux
+
+// Custom Components
 import Add from "../../../lib/Add";
-import { Phone, SMS, Whatsapp } from "@/components/Modals";
 import ModalComponent from "./ModalComponent";
+
+// Next.js
 import Image from "next/image";
+import Link from "next/link";
+
 
 
 
@@ -22,7 +33,7 @@ const Homeproperty = ({ property }: Props) => {
 
 
   return (
-    <div
+    <Link href={`/wishlist/${property._id}`} 
 
       className="block rounded-lg p-4 shadow-sm shadow-indigo-100 bg-[#fafafa]"
     >
@@ -95,7 +106,7 @@ const Homeproperty = ({ property }: Props) => {
         <ModalComponent property={property} />
       </div>
 
-    </div>
+    </Link>
   );
 };
 
