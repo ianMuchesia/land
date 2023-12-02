@@ -31,7 +31,6 @@ export const checkAuthentication=()=>{
             
 
         } catch (error) {
-            console.log(error)
             dispatch(setisNotAuthenticated())
         }
     }
