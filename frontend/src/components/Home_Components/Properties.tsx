@@ -13,7 +13,6 @@ interface Props{
 
 const Properties = ({properties}:Props) => {
 
-  console.log(properties)
   if (properties.length === 0 ) {
     return (
       <div className="flex items-center justify-center ">
