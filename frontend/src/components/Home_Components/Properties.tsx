@@ -13,6 +13,16 @@ interface Props{
 
 const Properties = ({properties}:Props) => {
 
+  console.log(properties)
+  if (properties.length === 0 ) {
+    return (
+      <div className="flex items-center justify-center ">
+        <h1 className="text-2xl font-bold text-gray-700 text-center max-w-[70%] my-28">
+        There was an error fetching data. Please check your connection.
+        </h1>
+      </div>
+    );
+  }
 
   return (
     <div className="px-4 py-4 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">

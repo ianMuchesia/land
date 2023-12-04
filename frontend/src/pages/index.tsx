@@ -38,13 +38,26 @@ export default function Home({properties}:Props) {
 
 
 export const getServerSideProps = async () => {
-  const { data } = await axios.get(`${process.env.BACKEND_URL}/api/v1/properties/featured`)
-
-  return {
-    props: {
-      properties: data.properties
-    }
+  try {
+    const { data } = await axios.get(`${process.env.BACKEND_URL}/api/v1/properties/featured`, {
+      timeout: 5000,
+    });
+  
+    return {
+      props: {
+        properties: data.properties,
+      },
+    };
+  } catch (error:any) {
+    console.error('Error fetching data:', error.message);
+  
+    return {
+      props: {
+        properties: [],
+      },
+    };
   }
+  
 }
 
 
