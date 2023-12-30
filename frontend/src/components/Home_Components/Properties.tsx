@@ -4,7 +4,6 @@ import axios from 'axios';
 import { typeProperties } from '@/@types/@types'
 import Link from 'next/link';
 import Homeproperty from './Homeproperty';
-import { useGetAllPropertiesQuery } from '@/redux/services/Api';
 
 interface Props{
   properties: typeProperties[];

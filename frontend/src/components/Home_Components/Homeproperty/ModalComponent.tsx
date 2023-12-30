@@ -13,7 +13,7 @@ const ModalComponent = ({ property }: Props) => {
     });
 
     return (
-        <div className="mt-6 flex items-center gap-8 text-xs">
+        <div className="mt-6 flex items-center gap-8 text-xs" onClick={(e)=>{e.preventDefault()}}>
             <div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2" onClick={() => setModalState((prev) => ({ ...prev, isPhone: true }))}>
                 <Icon
                     icon="solar:phone-outline"
